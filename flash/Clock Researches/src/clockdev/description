@@ -1,0 +1,65 @@
+
+	major types:
+		- clock
+		- countdown
+		- stopwatch
+
+	var clock:Clock = new Clock( ... );
+
+	this.stage.addChild( clock );
+	
+	Levels of Control:
+		- 1.: built-in styles
+			var clock:Clock = new Clock();
+				clock.style = ClockStyle( "18th century regular" );
+		
+		- 2.: create / override styles
+			- partially:
+				set plates / needles / use built-in mechanism constants				
+			- completely:
+				- core clock mechanism
+					ClockStyle.setClockMechanism( customClockMechanism: Function )
+					
+	clock customization:
+		clock update rate:
+			ClockUpdateRate.
+				DEFAULT	// parent FPS based by default
+				CUSTOM // custom FPS
+				ARBITRARY // update by custom function	
+		plate:
+			var plate:ClockPlate = new ClockPlate();
+				plate.bitmapData = new BitmapData( ... );
+				plate.center = new Point( ... );
+		needles:
+			var hourNeedle:ClockNeedle = new ClockNeedle();
+				hourNeedle.bitmapData = new bitmapData( ... );
+				hourNeedle.centerPoint = new Point( ... );
+				
+		rendering: ( for off-screen purposes )
+			vector: ( as Sprite )
+				clock.sprite
+			bitmap: ( as BitmapData )
+				clock.bitmapData
+		
+	ClockNeedleTurn
+		.CONSTANT // turn perpetually at every change of "second"
+		.IMMEDIATE // turn when time of needle change ONLY
+		.EASE // similar to IMMEDIATE but with ease functions
+			setClockNeedleTurnEaseFunction( customEaseFunction: Function )
+			
+	parts of a Watch:
+		- dial
+			- marks
+		- hands
+		
+	XML input:
+		<clock>
+			<dial source = "dial.png", width = "100", height = "100", centerX = "50", centerY = "50" />
+			<hands>
+				<hour source = "hourHand.png" ... />
+				<minute ... />
+				<second ... />
+			</hands>
+		</clock>
+	
+		

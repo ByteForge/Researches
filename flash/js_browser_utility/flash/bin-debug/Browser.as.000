@@ -1,0 +1,566 @@
+/*
+implement:
+	- get given url source
+	- instancing	
+*/
+
+package {
+	import flash.external.ExternalInterface;
+	
+	public class Browser {
+		
+		public static const UTILITY_EDITION:String = 'full';		
+		public static const UTILITY_VERSION:String = '0.9.123';		
+		
+		public static const UNKNOWN:int = -1;
+		public static const OTHER:int = 0;
+		
+		public static const OS_WIN:Number = 2;
+		public static const OS_MAC:Number = 3;
+		public static const OS_UNIX:Number = 4;
+		public static const OS_LINUX:Number = 5;
+		
+		public static const INTERNET_EXPLORER:int = 1001;
+		public static const MOZILLA_FIREFOX:int = 1002;
+		public static const GOOGLE_CHROME:int = 1003;
+		public static const SAFARI:int = 1004;
+		public static const OPERA:int = 1005;
+			public static const MAXTHON:int = 1006;
+			public static const K_MELEON:int = 1007;
+			public static const FLOCK:int = 1008;
+			public static const AVANT_BROWSER:int = 1009;
+			public static const SLEIPNIR:int = 1010;
+			public static const SLIMBROWSER:int = 1011;
+			public static const GREENBROWSER:int = 1012;
+			public static const DEEPNET_EXPLORER:int = 1013;
+			public static const SEAMONKEY:int = 1014;
+			public static const PHASEOUT:int = 1015;
+		
+		public static function get isEIA():Boolean { return ExternalInterface.available; }
+			
+		/*		
+		public static function alert( ...arg ):void {
+			if( ExternalInterface.available ) {
+				var r:String = '';
+				var i:int = 0;
+				var L:int = arg.length;
+				for( i = 0 ; i < L ; i++ ) {
+					r += String( arg[i] );
+					if( i+1 < L ) { r += ' , '; }
+				}
+				ExternalInterface.call('alert("'+r+'")');
+			}
+		}
+		
+		public static function eval( string:String ):void {
+			if( ExternalInterface.available ) {
+				ExternalInterface.call('eval("'+string+'")');
+			}
+		}
+		*/
+		
+		// BROWSER RELATED PROPERTIES / METHODS
+		public static function get type():int { 
+			if( isEIA ) {
+				var ua:String = navigator.userAgent.toLowerCase();
+				if( contains( ua , 'maxthon' ) ) {
+					return MAXTHON;
+				}				
+				if( contains( ua , 'msie' ) ) {
+					return INTERNET_EXPLORER;
+				}				
+				if( contains( ua , 'firefox' ) ) {
+					return MOZILLA_FIREFOX;
+				}				
+				if( contains( ua , 'chrome' ) && contains( ua , 'safari' ) ) {
+					return GOOGLE_CHROME;
+				}
+				if( !contains( ua , 'chrome' ) && contains( ua , 'safari' ) ) {
+					return SAFARI;
+				}
+				if( contains( ua , 'opera' ) ) {
+					return OPERA;
+				}				
+			}				
+			return UNKNOWN;
+		}
+		//public static function get typeString():String { return null; }
+		//FUTURE WORK public static function get layoutEngine():Number { return 0; }
+		//zoom detection
+		public static function get versionNumber():Number { 
+			var r:Number = UNKNOWN;
+			var vs:String = versionString;
+			if( vs != null ) { 
+				r = Number(iUtil.replace(vs,'.',''));
+			}
+			return r;
+		}
+		public static function get versionString():String { 
+			var ua:String = navigator.userAgent.toLowerCase();
+			var bt:int = type;
+			switch(bt) {
+				case MAXTHON: {
+					if( contains( ua , 'maxthon/' ) ) {
+						return iUtil.search( ua , { b:'maxthon/' , e:' ' } );
+					} else if( contains( ua , 'maxthon 2.0' ) ) {
+						return '2.0';
+					} else {
+						return null;
+					}
+				}				
+				case INTERNET_EXPLORER: {
+					return iUtil.replace(iUtil.search( ua , { b:'msie' , e:';' } ),' ','');
+				}				
+				case MOZILLA_FIREFOX: {
+					return iUtil.search( ua , { b:'firefox/' , e:' ' } );
+				}
+				case GOOGLE_CHROME: {
+					return iUtil.search( ua , { b:'chrome/' , e:' ' } );
+				}
+				case SAFARI: {
+					return iUtil.search( ua , { b:'version/' , e:' ' } );
+				}
+				case OPERA: {
+					return iUtil.search( ua , { b:'version/'} );
+				}				
+				default: { return null; }
+			}
+			return null; 
+		}
+		public static function get versionMajor():String {
+			var vs:String = versionString; if( vs == null ) { return null; }
+			var bt:int = type;
+			var arr:Array = vs.split('.',1);
+			switch(bt) {
+				case MAXTHON: {					
+					//return iUtil.search( vs , { e:'.' } );
+					return ( arr[0] != undefined ) ? arr[0] : null ;
+				}				
+				case INTERNET_EXPLORER: {
+					return iUtil.search( vs , { e:'.' } );
+				}				
+				case MOZILLA_FIREFOX: {
+					return iUtil.search( vs , { e:'.' } );
+				}
+				case GOOGLE_CHROME: {
+					return iUtil.search( vs , { e:'.' } );
+				}
+				case SAFARI: {
+					return iUtil.search( vs , { e:'.' } );
+				}
+				case OPERA: {
+					return iUtil.search( vs , { e:'.' } );
+				}					
+				default: { return null; }
+			}
+			return null; 
+		}
+		public static function get versionMinor():String {
+			var vs:String = versionString; if( vs == null ) { return null; }
+			var bt:int = type;
+			switch(bt) {
+				case MAXTHON: {
+					return iUtil.search( vs , { b:'.' , e:'.' } );
+				}
+				case INTERNET_EXPLORER: {
+					return iUtil.search( vs , { b:'.' } );
+				}				
+				case MOZILLA_FIREFOX: {
+					return iUtil.search( vs , { b:'.' , e:'.' } );
+				}
+				case GOOGLE_CHROME: {
+					return iUtil.search( vs , { b:'.' , e:'.' } );
+				}
+				case SAFARI: {
+					return iUtil.search( vs , { b:'.' , e:'.' } );
+				}
+				case OPERA: {
+					return iUtil.search( vs , { b:'.' } );
+				}					
+				default: { return null; }
+			}
+			return null; 
+		}
+		public static function get versionBuild():String {
+			var r:String = null;
+			var vs:String = versionString;
+			if( vs == null ) { return r; }
+			var bt:int = type;
+			var arr:Array = vs.split('.',3);
+			switch(bt) {
+				case MAXTHON: {
+					//return iUtil.search( vs , { b:'.' , e:'.' } , { b:1 } );
+					return ( arr[2] != undefined ) ? arr[2] : null ;
+				}
+				case INTERNET_EXPLORER: {
+					r = null;
+					break; }				
+				case MOZILLA_FIREFOX: {
+					r = iUtil.search( vs , { b:'.' , e:'.' } , { b:1 } );
+					break; }
+				case GOOGLE_CHROME: {
+					r = iUtil.search( vs , { b:'.' , e:'.' } , { b:1 } );
+					break; }
+				case SAFARI: {
+					r = iUtil.search( vs , { b:'.' , e:'.' } , { b:1 } );
+					break; }
+				case OPERA: {
+					r = null;
+					break; }
+					
+				default: { r = null; break; }
+			}
+			return r; 
+		}
+		public static function get versionRest():String {
+			var vs:String = versionString; if( vs == null ) { return null; }
+			var bt:int = type;
+			var arr:Array = vs.split('.',4);
+			switch(bt) {
+				case MAXTHON: {
+					return ( arr[3] != undefined ) ? arr[3] : null ;
+				}
+									
+				default: { return null; }
+			}
+			return null;
+		}
+			public static function get isInternetExplorer():Boolean { return ( type == INTERNET_EXPLORER ) ? true : false ; }
+			public static function get isMozillaFirefox():Boolean { return ( type == MOZILLA_FIREFOX ) ? true : false ; }
+			public static function get isGoogleChrome():Boolean { return ( type == GOOGLE_CHROME ) ? true : false ; }
+			public static function get isSafari():Boolean { return ( type == SAFARI ) ? true : false ; }
+			public static function get isOpera():Boolean { return ( type == OPERA ) ? true : false ; }
+			//more to come...
+	
+		// COOKIE RELATED PROPERTIES / METHODS
+		public static function get isCookiesEnabled():Boolean { return navigator.cookieEnabled; }
+		public static function hasCookie( name:String ):Boolean { return false; }
+		public static function addCookie( name:String , value:String , params:Object = null ):void { }
+		public static function getCookie( name:String ):String { return null; }
+		public static function removeCookie( name:String ):void { }
+			public static function get numCookies():Number { return 0; }
+			public static function hasCookies():Boolean { return false; }
+			public static function getCookies():Array { return null; }
+			public static function removeCookies():void { }
+						
+		private static var _isOSNull:Boolean = true;
+		private static var _os:OS = null;
+		public static function get os():OS {
+			if( !_isOSNull ) { return _os; } else { _os = new OS(); _isOSNull = false; return _os; }
+		}		
+		
+		private static var _isWindowNull:Boolean = true;
+		private static var _window:WINDOW = null;
+		public static function get window():WINDOW {
+			if( !_isWindowNull ) { return _window; } else { _window = new WINDOW(); _isWindowNull = false; return _window; }
+		}		
+		
+		private static var _isNavigatorNull:Boolean = true;
+		private static var _navigator:NAVIGATOR = null;
+		public static function get navigator():NAVIGATOR {
+			if( !_isNavigatorNull ) { return _navigator; } else { _navigator = new NAVIGATOR(); _isNavigatorNull = false; return _navigator; }
+		}		
+		
+		private static var _isScreenNull:Boolean = true;
+		private static var _screen:SCREEN = null;
+		public static function get screen():SCREEN {
+			if( !_isScreenNull ) { return _screen; } else { _screen = new SCREEN(); _isScreenNull = false; return _screen; }
+		}		
+		
+		private static var _isHistoryNull:Boolean = true;
+		private static var _history:HISTORY = null;
+		public static function get history():HISTORY {
+			if( !_isHistoryNull ) { return _history; } else { _history = new HISTORY(); _isHistoryNull = false; return _history; }
+		}
+		
+		private static var _isLocationNull:Boolean = true;
+		private static var _location:LOCATION = null;
+		public static function get location():LOCATION {
+			if( !_isLocationNull ) { return _location; } else { _location = new LOCATION(); _isLocationNull = false; return _location; }
+		}		
+		
+		private static function contains( source:String , what:String ):Boolean {
+			return ( source.indexOf(what) != -1 ) ? true : false ;
+		}
+	}
+}
+	import flash.external.ExternalInterface;
+
+	internal class iUtil {
+		public static function replace( s:String , a:String , b:String ):String { return s.split(a).join(b); }
+		public static function search( str:String , obj:Object = null , off:Object = null ):String {			
+			if( obj == null ) { return '' }
+			
+			obj.b = ( obj.b != undefined ) ? obj.b : false
+			obj.e = ( obj.e != undefined ) ? obj.e : false
+			
+			off = ( off != null ) ? off : {}
+			off.b = ( off.b != undefined ) ? ( ( off.b >= 0 ? off.b : 0 ) ) : 0
+			off.e = ( off.e != undefined ) ? ( ( off.e >= 0 ? off.e : 0 ) ) : 0
+			
+			var b:int
+			var e:int
+			var typeof_b:String = typeof obj.b
+			var typeof_e:String = typeof obj.e
+			
+			if ( typeof_b == 'string' ) {
+				if ( off.b == 0 ) {
+					b = str.indexOf( obj.b )
+				} else {
+					b = str.indexOf( obj.b )
+					while ( off.b-- ) {
+						b = str.indexOf( obj.b , b+1 )
+						if( b == -1 ) { break }
+					}
+				}
+			} else {
+				if ( typeof_b == 'number' ) {
+					b = ( obj.b >= 0 ) ? obj.b : 0
+				} else {
+					b = 0
+				}
+			}
+			
+			if( typeof_e == 'string' ) {
+				if ( off.e == 0 ) {
+					e = str.indexOf( obj.e , ( typeof_b == 'string' ) ? b+obj.b.length : e )
+				} else {
+					e = str.indexOf( obj.e , ( typeof_b == 'string' ) ? b+obj.b.length : e )
+					while ( off.e-- ) {
+						e = str.indexOf( obj.e , e+1 )
+						if ( e == -1 ) { 
+							e = -1
+							break 
+						}
+					}
+				}
+			} else {
+				if ( typeof_e == 'number' ) {
+					e = obj.e
+				} else {
+					e = -1
+				}
+			}
+			
+			if ( e < b && e != -1 ) { e = b }
+			
+			if ( e != -1 ) {
+				if ( typeof_b == 'string' ) {
+					return str.substring( b + obj.b.length , e )
+				} else {
+					return str.substring( b , e )
+				}
+			} else {
+				if ( typeof_b == 'string' ) {
+					return str.substring( b + obj.b.length )
+				} else {
+					return str.substring( b )
+				}				
+			}			
+		}
+	}
+
+	internal class OS {
+		public function get type():Number { return 0; }
+		public function get typeString():String { return null; }
+		public function get isWin():Boolean { return false; }
+		public function get isMac():Boolean { return false; }
+		public function get isUnix():Boolean { return false; }
+		public function get isLinux():Boolean { return false; }
+		
+	}
+
+	internal class WINDOW {
+		public function get closed():Boolean {
+			if( Browser.isEIA ) {
+				return Boolean(ExternalInterface.call('(function(){return window.closed;})'));
+			} else { return false; }
+		}
+	}
+
+	internal class NAVIGATOR {
+		public function get appCodeName():String {			
+			if( Browser.isEIA ) {
+				return String(ExternalInterface.call('(function(){return navigator.appCodeName;})'));
+			} else { return null; }
+		}
+		public function get appName():String {
+			if( Browser.isEIA ) {
+				return String(ExternalInterface.call('(function(){return navigator.appName;})'));
+			} else { return null; }
+		}
+		public function get appVersion():String {
+			if( Browser.isEIA ) {
+				return String(ExternalInterface.call('(function(){return navigator.appVersion;})'));
+			} else { return null; }
+		}
+		public function get cookieEnabled():Boolean {
+			if( Browser.isEIA ) {
+				return Boolean(ExternalInterface.call('(function(){return navigator.cookieEnabled;})'));
+			} else { return false; }
+		}
+		public function get platform():String {
+			if( Browser.isEIA ) {
+				return String(ExternalInterface.call('(function(){return navigator.platform;})'));
+			} else { return null; }
+		}
+		public function get userAgent():String {
+			if( Browser.isEIA ) {
+				//return String(ExternalInterface.call('(function(){return navigator.userAgent;})'));
+				return 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; Maxthon; .NET CLR 2.0.50727; .NET CLR 1.1.4322; .NET CLR 3.0.04506.30; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)';
+			} else { return null; }
+		}
+		public function javaEnabled():Boolean {
+			if( Browser.isEIA ) {
+				return Boolean(ExternalInterface.call('(function(){return navigator.javaEnabled();})'));
+			} else { return false; }
+		}
+		public function taintEnabled():Boolean {
+			if( Browser.isEIA ) {
+				return Boolean(ExternalInterface.call('(function(){return navigator.taintEnabled();})'));
+			} else { return false; }
+		}
+	}
+
+	internal class SCREEN {
+		public function get width():Number {
+			if( Browser.isEIA ) {
+				return Number(ExternalInterface.call('(function(){return screen.width;})'));
+			} else { return 0; }
+		}
+		public function get height():Number {
+			if( Browser.isEIA ) {
+				return Number(ExternalInterface.call('(function(){return screen.height;})'));				
+			} else { return 0; }
+		}
+		public function get availWidth():Number {
+			if( Browser.isEIA ) {
+				return Number(ExternalInterface.call('(function(){return screen.availWidth;})'));
+			} else { return 0; }
+		}
+		public function get availHeight():Number {
+			if( Browser.isEIA ) {
+				return Number(ExternalInterface.call('(function(){return screen.availHeight;})'));
+			} else { return 0; }
+		}
+		public function get pixelDepth():Number {
+			if( Browser.isEIA ) {
+				return Number(ExternalInterface.call('(function(){return screen.pixelDepth;})'));
+			} else { return 0; }
+		}
+		public function get colorDepth():Number {
+			if( Browser.isEIA ) {
+				return Number(ExternalInterface.call('(function(){return screen.colorDepth;})'));
+			} else { return 0; }
+		}
+	}
+
+	internal class HISTORY {
+		public function get length():Number {
+			if( Browser.isEIA ) {
+				return Number(ExternalInterface.call('(function(){return history.length;})'));
+			} else { return 0; }
+		}
+		public function back():void {
+			if( Browser.isEIA ) {
+				ExternalInterface.call('(function(){return history.back();})');
+			}
+		}
+		public function forward():void {
+			if( Browser.isEIA ) {
+				ExternalInterface.call('(function(){return history.forward();})');
+			}
+		}
+		public function go( ...arg ):void {
+			if( Browser.isEIA ) {
+				//ExternalInterface.call('(function(){return history.forward();})');
+				//FUTURE WORK
+			}
+		}
+	}
+
+	internal class LOCATION {
+		public function get hash():String {
+			if( Browser.isEIA ) {
+				return String(ExternalInterface.call('(function(){return location.hash;})'));
+			} else { return null; }
+		}
+		public function get host():String {
+			if( Browser.isEIA ) {
+				return String(ExternalInterface.call('(function(){return location.host;})'));
+			} else { return null; }
+		}
+		public function get hostname():String {
+			if( Browser.isEIA ) {
+				return String(ExternalInterface.call('(function(){return location.hostname;})'));
+			} else { return null; }
+		}
+		public function get href():String {
+			if( Browser.isEIA ) {
+				return String(ExternalInterface.call('(function(){return location.href;})'));
+			} else { return null; }
+		}
+		public function get pathname():String {
+			if( Browser.isEIA ) {
+				return String(ExternalInterface.call('(function(){return location.pathname;})'));
+			} else { return null; }
+		}
+		public function get port():String {
+			if( Browser.isEIA ) {
+				return String(ExternalInterface.call('(function(){return location.port;})'));
+			} else { return null; }
+		}
+		public function get protocol():String {
+			if( Browser.isEIA ) {
+				return String(ExternalInterface.call('(function(){return location.protocol;})'));
+			} else { return null; }
+		}
+		public function get search():String {
+			if( Browser.isEIA ) {
+				return String(ExternalInterface.call('(function(){return location.search;})'));
+			} else { return null; }
+		}
+		public function assign( url:String ):void {
+			if( Browser.isEIA ) {
+				//ExternalInterface.call('(function(){return location.assign();})');
+				//FUTURE WORK
+			}
+		}
+		public function reload():void {
+			if( Browser.isEIA ) {
+				ExternalInterface.call('(function(){return location.reload();})');				
+			}
+		}
+		public function replace( url:String ):void {
+			if( Browser.isEIA ) {
+				//ExternalInterface.call('(function(){return location.assign();})');
+				//FUTURE WORK
+			}
+		}
+	}
+
+	internal class ic_INTERNET_EXPLORER {
+		public function is4():Boolean { return false; }
+		public function is5():Boolean { return false; }
+		public function is55():Boolean { return false; }
+		public function is6():Boolean { return false; }
+		public function is7():Boolean { return false; }
+		public function is8():Boolean { return false; }
+		public function is9():Boolean { return false; }
+	}
+
+	internal class ic_MOZILLA_FIREFOX {
+		public function is1():Boolean { return false; }
+		public function is2():Boolean { return false; }
+		public function is3():Boolean { return false; }
+		public function is35():Boolean { return false; }
+	}
+
+	internal class ic_GOOGLE_CHROME {		
+	}
+	
+	internal class ic_SAFARI {		
+	}
+	
+	internal class ic_OPERA {		
+	}

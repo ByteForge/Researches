@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>page title</title>
+	
+	<script type="text/javascript">
+		function trace() {
+			var r = '';
+			var a = arguments;
+			var L = a.length;
+			var i = 0;
+			if( L > 0 ) {
+				for( i = 0 ; i < L ; i++ ) {
+					r += a[i];
+					if( i+1 < L ) {r += ' , ';}
+				}
+			} else {
+				r = " ";
+			}
+			//alert( r );
+			
+			if( console.debug ) { // FF
+				console.debug(r);
+			} else if( console.log ) { // IE9
+				console.log(r);
+			}
+			//document.body.innerHTML += r + '<br>';
+		};
+		
+		function onLOADED( fn ){
+			window._intervalID = 0;
+			window._intervalFunction = function(){
+				if( document.body ){
+					window.clearInterval( window._intervalID );
+					fn();
+				}
+			};
+			window._intervalID = window.setInterval( window._intervalFunction , 100 );
+		};
+		
+		var Jane = (function(){
+			var F;
+			F = function(){
+				if ( this instanceof Jane && !this.__previouslyConstructed ) {
+					this.__previouslyConstructed = true;
+					trace("called as a constructor - new Jane()");
+					
+					var f;
+					f = function(){};
+					return f;
+				} else {
+					trace("called as a function - Jane()");
+					
+					var arg = arguments;
+					
+					var str = arg[0];
+					
+					trace( str );
+					
+					if( typeof str === "string" ) {
+						if( str === "document" || str === "doc" ) {
+							trace( "return jDocument" );
+							return jDocument;
+						}
+					}
+				}
+			};
+			
+			window.J = F;
+			return F;
+		})();
+		
+		var jStyle = (function(){
+			var F;
+			F = function(){
+				if ( this instanceof jStyle && !this.__previouslyConstructed ) {
+					this.__previouslyConstructed = true;
+					trace("called as a constructor - new jStyle()");
+					
+					var f;
+					f = function(){};
+					return f;
+				} else {
+					trace("called as a function - jStyle()");
+				}
+			};
+			
+			window.jCSS = F;
+			return F;
+		})();
+		
+		var jDocument = (function(){
+			var F;
+			var M;
+			F = function(){
+				if ( this instanceof jDocument && !this.__previouslyConstructed ) {
+					this.__previouslyConstructed = true;
+					trace("called as a constructor - new jDocument()");
+					
+				} else {
+					trace("called as a function - jDocument()");
+					trace("chaining");
+					return M;
+				}
+			};
+				M = {
+					title : function( title ){
+						trace( typeof this );
+						if( typeof title === "string" ){
+							if( title.length > 0 ){
+								window.document.title = title;
+							}
+						} else if( typeof title === "number" && title === title ) {
+							window.document.title = ""+title;
+						}						
+						if( typeof this === "function" ) {
+							return window.document.title;
+						} else {
+							return M;
+						}
+					}
+				};
+				//F.title = M.title;
+				for( var m in M ) {
+					//trace( m , M[m] );
+					F[m] = M[m];
+				}
+				
+			window.jDoc = F;
+			return F;
+		})();
+		
+		onLOADED(function(){
+			
+			window.document.title = "Document Body";
+			
+			trace("loaded"); trace();
+			
+			//J("doc").title("a");
+			J("doc")()
+				.title("b")
+				.title("c")
+			;
+			
+			//J("doc")()
+			
+			//jDoc();
+			
+		});
+		
+	</script>
+</head>
+	<body>
+	</body>
+</html>

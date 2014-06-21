@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>page title</title>
+	
+	<script type="text/javascript">
+		function trace() {
+			var r = '';
+			var a = arguments;
+			var L = a.length;
+			var i = 0;
+			for( i = 0 ; i < L ; i++ ) {
+				r += a[i];
+				if( i+1 < L ) {r += ' , ';}
+			}    
+			//alert( r );
+			if( console.debug ) { // FF
+				console.debug(r);
+			} else if( console.log ) { // IE9
+				console.log(r);
+			}
+			//document.body.innerHTML += r + '<br>';
+		};
+		
+		function onLOADED( fn ){
+			window._intervalID = 0;
+			window._intervalFunction = function(){
+				if( document.body ){
+					window.clearInterval( window._intervalID );
+					fn();
+				}
+			};
+			window._intervalID = window.setInterval( window._intervalFunction , 100 );
+		};
+		
+		var jMath = (function(){
+			var RO = Math.round ;
+			var RA = Math.random ;
+			
+			var F;			
+			F = function(){
+				if ( this instanceof jMath && !this.__previouslyConstructed ) {
+					this.__previouslyConstructed = true;
+					trace("called as a constructor - new ...()");
+					
+					var f;
+					f = function(){};
+					return f;
+				} else {
+					trace("called as a function - ...()");
+				}
+			};
+				F.randomInt = function(){};
+				F.randomFloat = function(){};
+				F.toss = function(){ 
+					return RO( RA() ) === 1 ? true : false ;
+				};
+				
+				F.GCD = function( a ){
+				
+					var L = arguments.length;
+				
+					if( L > 0 ) {
+						var r = RO( a );
+						if( r > 0 ){
+							for( var i = 1 ; i < L ; i++ ){
+								var y = RO( arguments[i] );
+								if( y > 0 ){
+									var x = r;								
+									while (y != 0) {
+										var w = x % y;
+										x = y;
+										y = w;
+									}
+									r = x;
+								} else {
+									return 0;
+								}
+							}
+							return r;
+						}
+					}
+					return 0;
+				};
+				F.LCM = function( a ){
+					
+					var L = arguments.length;
+				
+					if( L > 0 ){
+						var r = RO( a );
+						if( r > 0 ){
+							for( var i = 1 ; i < L ; i++ ){
+								a = RO( arguments[i] );
+								if( a > 0 ){
+									var x = r;
+									var y = a;
+									while (y != 0) {
+										var w = x % y;
+										x = y;
+										y = w;
+									}
+									r = ( r * a ) / x;
+									if( r === 1 ) { break; }
+								} else {
+									return 0;
+								}							
+							}
+							return r;
+						}
+					}
+					return 0;
+				};
+			return F;
+		})();
+		
+		onLOADED(function(){
+			
+			trace("loaded");
+			
+			trace( jMath.GCD( 150.4 , 75.5 , 50.5 , 30.1 ) );
+			
+			trace( jMath.LCM( 3.2 , 7.3 , 4.12 ) );
+			
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			trace( jMath.toss() );
+			
+			
+		});
+		
+	</script>
+</head>
+	<body>
+	</body>
+</html>

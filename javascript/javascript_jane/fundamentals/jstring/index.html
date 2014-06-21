@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>page title</title>
+	
+	<script type="text/javascript">
+		function trace() {
+			var r = '';
+			var a = arguments;
+			var L = a.length;
+			var i = 0;
+			for( i = 0 ; i < L ; i++ ) {
+				r += a[i];
+				if( i+1 < L ) {r += ' , ';}
+			}    
+			//alert( r );
+			if( console.debug ) { // FF
+				console.debug(r);
+			} else if( console.log ) { // IE9
+				console.log(r);
+			}
+			//document.body.innerHTML += r + '<br>';
+		};
+		
+		function onLOADED( fn ){
+			window._intervalID = 0;
+			window._intervalFunction = function(){
+				if( document.body ){
+					window.clearInterval( window._intervalID );
+					fn();
+				}
+			};
+			window._intervalID = window.setInterval( window._intervalFunction , 100 );
+		};
+		
+		var jString = (function(){
+			var F;
+			F = function(){
+				if ( this instanceof jString && !this.__previouslyConstructed ) {
+					this.__previouslyConstructed = true;
+					trace("called as a constructor - new ...()");
+					
+					var f;
+					f = function(){};
+					return f;
+				} else {
+					trace("called as a function - ...()");
+				}
+			};
+				F.isBlank = function(){};
+				F.isEmpty = function(){};
+				F.contains = function(){};
+				F.remove = function( mode ){
+					
+					if( mode === "accent" || mode === "accents" ) {
+					
+					} else if( mode === "extra whitespaces" ) {
+					
+					}
+				};
+				
+				F.generate = function(){
+				
+				};
+			return F;
+		})();
+		
+		onLOADED(function(){
+			
+			trace("loaded");
+			
+		});
+		
+	</script>
+</head>
+	<body>
+	</body>
+</html>

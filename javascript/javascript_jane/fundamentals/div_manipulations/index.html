@@ -1,0 +1,413 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>page title</title>
+	
+	<script type="text/javascript">
+		function trace() {
+			var r = '';
+			var a = arguments;
+			var L = a.length;
+			var i = 0;
+			for( i = 0 ; i < L ; i++ ) {
+				r += a[i];
+				if( i+1 < L ) {r += ' , ';}
+			}    
+			//alert( r );
+			//console.debug(r);
+			
+			if( console.debug ) { // FF
+				console.debug(r);
+			} else if( console.log ) { // IE9
+				console.log(r);
+			}			
+			//document.body.innerHTML += r + '<br>';
+		}
+		
+		//trace(" ... ");
+		
+		function xDiv() {
+			var $ = this.$ = {
+				x : {
+					value : 10 ,
+					unit : "px"
+				}
+			};
+			
+			var div = document.createElement( "div" );
+				div.style.position = "absolute";
+				div.style.left = "10px";
+				div.style.top = "10px";
+				div.style.width = "100px";
+				div.style.height = "100px";
+				div.style.backgroundColor = "#FF0000";
+				
+			var s = div.style;
+			
+			var f = function( v0 , v1 ){
+			
+			};
+				f.addChild = function(){
+					document.body.appendChild( div );
+				};
+			
+				f.y = function( value ){
+				
+					s.top = value + "px";
+				
+				}
+			
+				f.x = function( value , unit ){
+				
+					s.left = value + "px";
+				
+					return;
+				
+					if( value ) {
+						if( !unit ) {
+							switch( typeof value ) {
+								case "number":
+									if( value === value ) { // check value is NOT NaN
+										$.x.value = value;
+									} else {
+										$.x.value = 0;
+									}
+									break;
+								case "string":
+									
+									switch( value ) {
+										case "value": return $.x.value;
+										case "unit": return $.x.unit;
+										case "px": 
+										case "%": 
+										case "in": 
+										case "cm": 
+										case "mm": 
+										case "em": 
+										case "ex": 
+										case "pt": 
+										case "pc":
+											$.x.unit = value;
+											s.left = $.x.value+$.x.unit;
+											return $.x.value;
+										default:
+											break;
+									}
+									
+									break;
+								default:
+									break;
+							}
+						} else {
+							
+						}
+						
+						return $.x.value;
+					} else {
+						return $.x.value;
+					}
+				
+					value = "px";
+					
+					trace( parseFloat( value ) );
+				
+					if( typeof value != "undefined" || typeof value != "null" ) {
+						switch( typeof value ) {
+							case "number":
+								if( value === value ) { // check value is NOT NaN
+									$.x.value = value;
+								} else {
+									$.x.value = 0;
+								}							
+								break;
+							case "string":
+								value = value.toLowerCase().split(" ").join("");							
+								var num = parseFloat( value );							
+								if( num === num ) { // check value is NOT NaN
+									$.x.value = num;								
+								} else {
+									switch( value ) {
+										case "px": 
+										case "%": 
+										case "in": 
+										case "cm": 
+										case "mm": 
+										case "em": 
+										case "ex": 
+										case "pt": 
+										case "pc":
+											$.x.unit = value;
+											s.left = $.x.value+$.x.unit;
+											return $.x.value;
+										default:
+											$.x.value = 0;
+											break;
+									}
+								}
+								break;
+							default:
+								trace( "null / undefined" );
+								//$.x.value = 0;
+								//break;
+								return $.x.value;
+						}
+					} else {
+						return $.x.value;
+					}				
+					switch( unit ) {
+						case "px": 
+						case "%": 
+						case "in": 
+						case "cm": 
+						case "mm": 
+						case "em": 
+						case "ex": 
+						case "pt": 
+						case "pc":
+							$.x.unit = unit;
+							s.left = $.x.value+$.x.unit;
+							return $.x.value;
+						default:
+							break;
+					}
+				
+					switch( typeof unit ) {
+						case "string":
+							unit = unit.toLowerCase();
+							if( unit.indexOf("px") > -1 ) { $.x.unit = "px"; }
+							else if( unit.indexOf("%") > -1 ) { $.x.unit = "%"; }
+							else if( unit.indexOf("in") > -1 ) { $.x.unit = "in"; }
+							else if( unit.indexOf("cm") > -1 ) { $.x.unit = "cm"; }
+							else if( unit.indexOf("mm") > -1 ) { $.x.unit = "mm"; }
+							else if( unit.indexOf("em") > -1 ) { $.x.unit = "em"; }
+							else if( unit.indexOf("ex") > -1 ) { $.x.unit = "ex"; }
+							else if( unit.indexOf("pt") > -1 ) { $.x.unit = "pt"; }
+							else if( unit.indexOf("pc") > -1 ) { $.x.unit = "pc"; }
+							else { 
+								$.x.unit = "px";
+							}
+							break;
+						default:
+							break;
+					}
+				
+					switch( typeof value ) {
+						case "number":
+							if( value === value ) { // check value is NOT NaN
+								$.x.value = value;
+							} else {
+								$.x.value = 0;
+							}							
+							break;
+						case "string":
+							value = value.toLowerCase().split(" ").join("");							
+							var num = parseFloat( value );							
+							if( num === num ) { // check value is NOT NaN
+								$.x.value = num;								
+							} else {
+								$.x.value = 0;
+							}
+							break;
+						default:
+							trace( "null / undefined" );
+							//$.x.value = 0;
+							//break;
+							return $.x.value;
+					}
+					s.left = $.x.value+$.x.unit;
+					//trace( s.left );
+					return $.x.value;
+				};
+				
+				f.browser = function() {
+					//trace("works");
+					
+					var D = document.createElement("div");
+					var S = D.style;
+					
+					S.MozTransform = undefined;
+					S.webkitTransform = undefined;
+					S.msTransform = undefined;
+					S.OTransform = undefined;
+					
+					if( S.MozTransform != undefined ) {
+						trace( "FF" );
+					} else if( S.webkitTransform != undefined ) {
+						trace( "Safari / Chrome" );
+					}  else if( S.msTransform != undefined ) {
+						trace( "IE 9" );
+					} else if( S.OTransform != undefined ) {
+						trace( "Opera" );
+					}
+					
+					trace( "MozTransform" , S.MozTransform );
+					trace( "webkitTransform" , S.webkitTransform );
+					
+					trace( "msTransform" , S.msTransform );
+					trace( "mSTransform" , S.mSTransform );
+					trace( "MsTransform" , S.MsTransform );
+					trace( "MSTransform" , S.MSTransform );
+					
+					trace( "oTransform" , S.oTransform );
+					trace( "OTransform" , S.OTransform );
+					
+					trace( "transform" , S.transform );
+					trace( "Transform" , S.Transform );
+					
+					trace( "filter" , S.filter );
+					
+					
+					//S.MozTransform = ".....";
+					//S.webkitTransformOrigin = undefined;
+					
+					//trace( S.MozTransform );
+					//trace( S.webkitTransformOrigin );
+					
+					//S.left = ";";
+					
+					//trace( S.left );
+				}
+				
+				
+				f.A = 1;
+				f.B = 0;
+				f.C = 0;
+				f.D = 1;
+				f.TX = 0;
+				f.TY = 0;
+				
+				f.translate = function( X , Y ) {
+					f.TX = X;
+					f.TY = Y;
+				};
+				
+				f.scale = function( X , Y ){
+					f.A = f.A * X + f.C * 0;
+					f.B = f.B * X + f.D * 0;
+					f.C = f.A * 0 + f.C * Y;
+					f.D = f.B * 0 + f.D * Y;
+				};
+				
+				f.skew = function( X , Y ) {
+				
+					X = X * Math.PI/180;
+					Y = Y * Math.PI/180;
+				
+					f.A = f.A * 0 + f.C * Y;
+					f.B = f.B * 0 + f.D * Y;
+					f.C = f.A * X + f.C * 0;
+					f.D = f.B * X + f.D * 0;
+				};
+				
+				f.rotate = function( X ) {
+					
+					var sin = Math.sin( X * ( Math.PI/180 ) );
+					var cos = Math.cos( X * ( Math.PI/180 ) );
+					
+					f.A = f.A * cos + f.C * sin;
+					f.B = f.B * cos + f.D * sin;
+					f.C = ( f.A * ( -sin ) ) + ( f.C * cos );
+					f.D = ( f.B * ( -sin ) ) + ( f.D * cos );
+				};
+				
+				f.matrix = function() {
+					
+					trace( "matrix( "
+						+f.A +" , "
+						+f.B +" , "
+						+f.C +" , "
+						+f.D +" , "
+						+f.TX +" , "
+						+f.TY						
+					+ " );" );
+				};
+				
+				f.update = function(){};
+		
+			return f;
+		}
+			
+		function intervalFunction() {
+			if( document.body ){
+				//trace( "clearInterval" );
+				window.clearInterval( window.QWERTY );
+				window.CALLBACK();
+			} else {
+				//trace( "continue" );
+			}
+		};		
+		window.QWERTY = window.setInterval( intervalFunction , 10 );
+		window.CALLBACK = function(){
+			
+			var d = new xDiv();
+			//d.addChild();
+			
+			//d.browser(); //check Browser
+			
+			//d.x( 50 );
+			//d.y( 50 );
+			//d.rotation();
+			
+			//d.rotate( -91 );
+			
+			d.matrix();
+			
+			//d.scale( 1.5 , 1.5 );
+			//d.skew( 1 , 1 );
+			
+			d.rotate( 25 );
+			d.rotate( 25 );
+			
+			d.matrix();
+		};
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</script>
+</head>
+	<body>
+	</body>
+</html>

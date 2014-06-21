@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>page title</title>
+	
+	<script type="text/javascript">
+		function trace() {
+			var r = '';
+			var a = arguments;
+			var L = a.length;
+			var i = 0;
+			if( L > 0 ) {
+				for( i = 0 ; i < L ; i++ ) {
+					r += a[i];
+					if( i+1 < L ) {r += ' , ';}
+				}
+			} else {
+				r = " ";
+			}
+			//alert( r );
+			
+			if( console.debug ) { // FF
+				console.debug(r);
+			} else if( console.log ) { // IE9
+				console.log(r);
+			}
+			//document.body.innerHTML += r + '<br>';
+		};
+		
+		function onLOADED( fn ){
+			window._intervalID = 0;
+			window._intervalFunction = function(){
+				if( document.body ){
+					window.clearInterval( window._intervalID );
+					fn();
+				}
+			};
+			window._intervalID = window.setInterval( window._intervalFunction , 100 );
+		};
+		
+		var jCookies = (function(){
+			var N_V = "; expires=" + new Date( 0 ).toUTCString();
+			var EXPIRE = "=" + N_V;
+			var DOC = window.document;
+			var F;
+			F = function(){};
+				F.addCookie = function( name , value ){};
+				F.getCookie = function( name , value ){};
+				F.setCookie = function( name , value ){};				
+				F.hasCookie = function( name , value ){
+					
+					//trace( typeof name );
+					//trace( typeof value );
+					
+					var nameUsable = false;
+					var valueUsable = false;
+					
+					name = "name2";
+					var typeof_name = typeof name;
+					
+					if( typeof_name === "string" && name.length > 0 ) {
+						trace( "usable name" , name );
+						nameUsable = true;
+					} else if( typeof_name === "number" && name === name ) {
+						name = String(name);
+						nameUsable = true;
+						trace( "usable name in number" , name , typeof name );
+					} else {
+						trace( "UNUSABLE name" , name );
+					}
+					
+					if( nameUsable ) {
+						//trace( name );
+						//trace( escape( name ) );
+						name = escape( name );
+					}
+					
+					var C = DOC.cookie;
+					var A = null; // Array
+					var X = [];
+					
+					if( C.length > 0 ) {
+						A = C.split( "; " );
+					} else {
+						return false;
+					}
+					for( var i = 0 , I = A.length , B , Ae ; i < I ; i++ ) {
+						Ae = A[i];
+						B = Ae.indexOf( "=" );
+						if( B > -1 ) {							
+							if( Ae.substring( 0 , B ) === name ){
+								//return true;
+								trace( name , "true" );
+								return true;
+							}							
+						}
+					}					
+					return false;					
+				};				
+				F.removeCookie = function( name , value ){};
+				
+				F.addCookies = function(){};
+				F.getCookies = function(){
+					
+					var 
+						C = DOC.cookie ,
+						A = null , // Array
+						X = []
+					;
+					
+					if( C.length > 0 ) {
+						A = C.split( "; " );
+					} else {
+						return null;
+					}
+					var j = 0;
+					var N;
+					var V;
+					
+					for( var i = 0 , I = A.length , B , Ae ; i < I ; i++ ) {
+						Ae = A[i];
+						B = Ae.indexOf( "=" );
+						if( B > -1 ) {
+							N = Ae.substring( 0 , B );
+							V = Ae.substr( B+1 );
+							if( V.length > 0 ){
+								X[j++] = [ N , V ];
+							} else {
+								X[j++] = [ N , null ];
+							}
+						} else {
+							X[j++] = [ null , Ae ];
+						}
+					}
+					
+					//for( var i = 0 , I = X.length ; i < I ; i++ ){ trace( X[i][0] , X[i][1] ); }
+					
+					return X;
+				};
+				F.setCookies = function(){};				
+				F.hasCookies = function(){};				
+				F.numCookies = function(){
+					var C = DOC.cookie;
+					if( C.length > 0 ) {
+						return C.split( "; " ).length;
+					} else {
+						return 0;
+					}					
+				};
+				F.removeCookies = function(){
+					var C = DOC.cookie;
+					var A = null; // Array
+					var X = [];
+					
+					trace( DOC.cookie );
+					
+					if( C.length > 0 ) {
+						A = C.split( "; " );
+					} else {
+						return null;
+					}
+					
+					var Ae;
+					var B;
+					var N;
+					var V;
+					var j = 0;
+					
+					for( var i = 0 , I = A.length ; i < I ; i++ ) {						
+						Ae = A[i];
+						B = Ae.indexOf( "=" );
+						/*
+						if( B > -1 ) {
+							DOC.cookie = Ae.substring( 0 , B ) + EXPIRE;
+						} else {
+							DOC.cookie = EXPIRE;
+						}
+						*/
+						if( B > -1 ) {
+							N = Ae.substring( 0 , B );
+							V = Ae.substr( B+1 );
+							if( V.length > 0 ){
+								X[j++] = [ N , V ];
+							} else {
+								X[j++] = [ N , null ];
+							}
+							DOC.cookie = N + EXPIRE;
+						} else {
+							X[j++] = [ null , Ae ];
+							DOC.cookie = EXPIRE;
+						}
+					}
+					DOC.cookie = N_V;
+					return X;
+					//trace( X );
+				};
+				
+				//trace( "init state" );
+				
+				DOC.cookie = N_V;
+			return F;
+		})();
+		
+		var jCookie = (function(){
+			var F;
+			F = function(){
+				if ( this instanceof jCookie && !this.__previouslyConstructed ) {
+					this.__previouslyConstructed = true;
+					trace("called as a constructor - new ...()");
+					
+					var f;
+					var _;
+					f = function(){};
+						f._ = {
+							name : "" ,
+							value : "" ,
+							expiration : "" ,
+							domain : "" ,
+							path : "" ,
+							secure : false
+						};
+						_ = f._;
+						
+						f.name = function( value ){
+							if( typeof value === "string" ){
+								_.name = ( value.length > 0 ) ? value : "..." ;
+							} else if( typeof value === "number" ) {
+								_.name = ( value === value ) ? String(value) : "..." ;
+							} else {
+								if( String(value) !== "null" && String(value) !== "undefined" ) {
+									_.name = String( value );
+								}
+							}
+							return _.name;
+						};
+						f.value = function( value ){
+							
+						};
+						f.expiration = function( value , month , day , hour , minute , second ){
+							if( typeof value === "" ) {
+							
+							}
+							
+						};						
+						f.domain = function(){};						
+						f.path = function(){};
+						f.secure = function( value ){
+							if( typeof value === "boolean" ) {
+								_.secure = value;
+							} else if( typeof value === "number" && value === value ) {
+								_.secure = ( value === 0 ) ? false : true ;
+							}
+							return _.secure;
+						};
+
+						f.addSubCookie = function( subCookie ){};
+						f.addSubCookieAt = function( subCookie , index ){};
+						f.contains = function( subCookie ){};
+						
+						f.getSubCookieAt = function( index ){};
+						f.getSubCookieByName = function( name ){};
+						f.getSubCookieIndex = function( index ){};
+						
+						f.hasSubCookie = function(){};
+						
+						f.setSubCookie = function(){};
+						
+						f.removeSubCookie = function( subCookie ){};
+						f.removeSubCookieAt = function( index ){};
+						
+						f.swapSubCookies = function( subCookie1 , subCookie2 ){};
+						f.swapSubCookiesAt = function( index1 , index2 ){};
+					return f;
+				} else {
+					trace("called as a function - ...()");
+				}
+			};
+			return F;
+		})();
+		
+		onLOADED(function(){
+			
+			/*
+				NOTE:
+					- improve ( copy ) cookie extraction ( "".split("=") is NOT usable )
+					
+			*/
+			
+			trace("loaded"); trace();
+			
+			/*
+			var bool = Boolean;
+			trace( typeof bool ); // function
+			trace( bool instanceof Boolean ); // false
+			trace( bool == Boolean , bool === Boolean ); // true , true
+			*/
+			/*
+			var obj = {};
+			trace( typeof obj ); // object
+			trace( obj instanceof Object ); // true
+			trace( obj == Object , obj === Object ); // false , false
+			*/
+			
+			var arr = [];
+			trace( typeof arr ); // object
+			trace( arr instanceof Array ); // true
+			trace( arr == Array , arr === Array ); // false , false
+			
+			
+			return;
+			
+			document.cookie = "name=value";
+			document.cookie = "name1=";
+			document.cookie = "name2=";
+			document.cookie = "name3;=";
+			document.cookie = "name4======;===;=;=";
+			document.cookie = escape("name4;=") +"="+ escape("=;=_yes");
+			document.cookie = "value=";			
+			document.cookie = "=nameless";			
+			//document.cookie = "";
+			
+			trace( document.cookie );
+			
+			jCookies.getCookies();
+			
+			trace();
+			//trace( jCookies.numCookies() );
+			
+			trace();
+			jCookies.removeCookies();
+			trace( jCookies.numCookies() );
+			
+			//jCookies.hasCookie( "name2" );
+		});
+		
+	</script>
+</head>
+	<body>
+	</body>
+</html>

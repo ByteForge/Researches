@@ -1,0 +1,13 @@
+"ID","Type","Status","Priority","Milestone","Owner","Summary","AllLabels"
+"6","Defect","Accepted","Medium","","millerme...@gmail.com","resize flash movie using ExternalInterface on Opera 10.10 doesn't work properly","Priority-Medium, Type-Defect"
+"7","Defect","Accepted","Low","","millerme...@gmail.com","IE6 shows both scroll bars if the movie is bigger on only one axis","Priority-Low, Type-Defect"
+"10","Defect","Accepted","Medium","","millerme...@gmail.com","Weird Flicker Bug in Safari","Performance, Priority-Medium, Type-Defect"
+"11","Defect","Accepted","Medium","","millerme...@gmail.com","FF - flash on wrong position if body has text-align center.","Priority-Medium, Type-Defect"
+"12","Defect","New","Medium","","","Scaling issue with Ctrl/ mouse scroll","Priority-Medium, Type-Defect"
+"13","Defect","New","Medium","","","Complete defect in IE9 (public beta)","Priority-Medium, Type-Defect"
+"14","Defect","New","Medium","","","Flicker problem in Google Chrome","Priority-Medium, Type-Defect"
+"15","Defect","New","Medium","","","Complete defect on IE9","Priority-Medium, Type-Defect"
+"16","Defect","New","Medium","","","100% height work wrong in Internet Explorer 9","Priority-Medium, Type-Defect"
+"17","Defect","Accepted","Medium","","millerme...@gmail.com","Firefox 4 hides flash movie during window resize","Priority-Medium, Type-Defect"
+"18","Defect","New","Medium","","","swffit work properly in all browsers but not in IE","Priority-Medium, Type-Defect"
+

@@ -1,0 +1,91 @@
+An online tool to return placeholder images
+
+ 	parameters:
+ 		examples:
+ 			960x120 company logo, "company" bottom-right, bold
+ 			50x50 user
+ 			250x100 animal
+
+ 		{no parameters}:
+ 			return default placeholder
+
+ 		{dimensions}:
+ 			{width}: (125, 600, 750)
+ 				returns a square image with size of the width
+ 			{width}x{height}: (100x100, 125x500)
+ 				returns an image with size {width}x{height}
+
+ 		{colors}:
+ 			hex
+ 				RGB Hex:
+ 					{0xF} / {0xFF} / {0xFFF} / {0xFFF FFF}
+ 				RGBA Hex:
+ 					{0xFFFFFF 0.5} alpha:(float)
+ 					{0xFFFFFF 50%} alpha:(percent)
+ 			rgb(a)
+ 				rgb:
+ 					rgb(100,50%,100) (integer, percent)
+ 				rgba:
+ 					rgba(100,50%,100,0.5) (integer, percent), alpha:(float, percent)
+ 					rgba(100,50%,100,50%) (integer, percent), alpha:(float, percent)
+ 			hsl(a):
+ 			named colors:
+ 				W3C: 
+ 					w3c ... / w3c(...)
+ 				X11: http://en.wikipedia.org/wiki/X11_color_names
+ 					(-)x11 ... / x11(...)
+ 				Crayon colors: http://en.wikipedia.org/wiki/List_of_Crayola_crayon_colors
+ 					crayon ... / crayon(...) / cray / cra / cr
+ 					pastel / past / pas / pa
+ 				Primary
+ 				Secondary
+ 				Tertiary
+
+ 				custom
+ 					soft
+ 					nice
+ 					slight
+ 					smooth
+
+ 			modifiers:
+ 				bright:
+ 					returns a definately brighter color (if it is not too bright enough)
+ 				dark: 					
+ 					returns a definately darker color (if it is not too dark enough)
+
+ 				brighter:
+ 					returns a slightly brighter color (if it is not too bright enough)
+ 				darker:
+ 					returns a slightly darker color (if it is not too dark enough)
+
+ 		mix colors:
+ 		gradients:
+ 		borders: (colored padding)
+ 		effects:
+ 			grayscale
+ 			bright(er) / dark(er)
+ 			noise
+
+ 		text:
+ 			specify text:
+ 				"..." / '...'
+ 				text / txt({text},{color})
+ 			align:
+ 				top, bottom, middle
+ 				left, right, center
+
+ 		content:
+ 			random and specified
+
+ 			animals
+ 				dogs, cats
+ 			flickr (other photosites)
+
+
+ 	useful links:
+ 		http://code.tutsplus.com/articles/the-top-8-placeholder-services-for-web-designers--net-19485
+
+		http://en.wikipedia.org/wiki/List_of_colors
+		http://en.wikipedia.org/wiki/X11_color_names
+		http://www.colorhexa.com/color-names
+		http://en.wikipedia.org/wiki/List_of_Crayola_crayon_colors

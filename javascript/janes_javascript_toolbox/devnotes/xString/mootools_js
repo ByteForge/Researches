@@ -1,0 +1,17 @@
+MooTools.js:
+	- String.from
+	- String.uniqueID
+	- test
+	- contains
+	- trim
+	- clean
+	- camelCase
+	- hyphenate
+	- capitalize
+	- escapeRegExp
+	- toInt
+	- toFloat
+	- hexToRgb
+	- rgbToHex
+	- substitute
+	- stripScripts

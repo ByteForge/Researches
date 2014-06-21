@@ -1,0 +1,800 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="jane.js"></script>
+    </head>
+    
+    <!--<body onload="onLOAD()">-->
+    <body onload="Jane.onLOAD()">
+        
+    </body>    
+    <script id="JavaScriptFramework" type="text/javascript">
+        
+        /* CSS Reseting
+        html,body,div,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,pre,form,p,blockquote,fieldset,input,hr {margin:0; padding:0;}
+        h1,h2,h3,h4,h5,h6,pre,code,address,caption,cite,code,em,strong,th {font-size:1em; font-weight:normal; font-style:normal;}
+        ul,ol {list-style:none;}
+        fieldset,img,hr {border:none;}
+        caption,th {text-align:left;}
+        table {border-collapse:collapse; border-spacing:0;}
+        td {vertical-align:top;}
+        */
+        
+        // CONSTANTS ->>>
+        var CSSReset = {
+            SOFT : 'SOFT' ,
+            NORMAL : 'NORMAL' ,
+            HARD : 'HARD' ,
+            CUSTOM : 'CUSTOM'
+        };
+        var CSSResetExcept = {
+            
+        };
+        
+        var RegistrationPoint = {
+            TOP_LEFT : 'TL' ,
+            TOP_MIDDLE : 'TM' ,
+            TOP_RIGHT : 'TR' ,
+            MIDDLE_LEFT : 'ML' ,
+            CENTER : 'C' ,
+            MIDDLE_RIGHT : 'MR' ,
+            BOTTOM_LEFT : 'BL' ,
+            BOTTOM_MIDDLE : 'BM' ,
+            BOTTOM_RIGHT : 'BR'            
+        }
+        
+        var StageAlign = {
+            TOP : 'T' ,
+            BOTTOM : 'B' ,
+            LEFT : 'L' ,
+            RIGHT : 'R' ,
+            TOP_LEFT : 'TL' ,
+            TOP_RIGHT : 'TR' ,
+            BOTTOM_LEFT : 'BL' ,
+            BOTTOM_RIGHT : 'BR'
+        }
+        
+        var TextAlign = {
+            LEFT : 'left' ,
+            CENTER : 'center' ,
+            RIGHT : 'right' ,
+            JUSTIFY : 'justify'
+        };
+        // <<<- CONSTANTS
+        
+        // EVENTS ->>>
+        var EVENT = {
+            READY : 'READY' ,
+            ADDED : 'ADDED' ,
+            REMOVED : 'REMOVED'
+        }        
+        // <<<- EVENTS
+        
+        // ERRORS ->>>
+                
+        // <<<- ERRORS
+                
+        
+        var Mouse = {
+            cursor : function( value ){
+                return null;
+            },
+            visible : function( value ) {
+                return false;
+            } ,
+            
+            x : function() {
+                return 0;
+            } ,
+            y : function() {
+                return 0;
+            }
+        };
+        var Keyboard = {};
+        
+        function CSS(){}; // static and instance
+        CSS.reset = function( level , except , custom ) {
+            
+        };
+        
+        // COOKIES Related
+        var Cookies = {
+            numCookies : function(){
+                return 0;
+            } ,
+            addCookies : function() {
+                return null;
+            } ,
+            addCookie : function( cookie ) {
+                return null;
+            } ,
+            addCookieAt : function( cookie , index ) {
+                return null;
+            } ,
+            hasCookies : function( /* all / specific */ ) {
+                return false;
+            } ,
+            hasCookie : function( cookie ) {
+                return false;
+            } ,
+            getCookies : function() {
+                return null;
+            } ,
+            getCookieAt : function( index ) {
+                return null;
+            } ,
+            getCookieByName : function ( name ) {
+                return null;
+            } ,
+            getCookieIndex : function ( cookie ) {
+                return -1;
+            } ,
+            removeCookies : function () {
+                return null;
+            } ,
+            removeCookie : function ( cookie ) {
+                return null;
+            } ,
+            removeCookieAt : function ( index ) {
+                return null;
+            } ,
+            setCookieIndex : function ( cookie , index ) {
+                return null;
+            } ,
+            swapCookies : function ( cookie1 , cookie2 ) {
+                return null;
+            } ,
+            swapCookiesAt : function ( index1 , index2 ) {
+                return null;
+            }
+        };
+        function Cookie(){};
+        function SubCookie(){};
+                
+        var Stage = {
+            _ : { 
+                v : true ,
+                children : null ,
+                                
+                // VIEWPORT SIZE RELATED
+                VPS : 0 , // is Viewport Size Initialized
+                initVPS : function() {
+                    if( typeof( window.innerWidth ) == 'number' ) {
+                        //Non-IE                        
+                        Stage._.VPS = 1;
+                    } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                        //IE 6+ in 'standards compliant mode'                        
+                        Stage._.VPS = 2;
+                    } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                        //IE 4 compatible                        
+                        Stage._.VPS = 3;
+                    } else {
+                        Stage._.VPS = 4;
+                    }
+                } ,                
+                
+                // Object ID RELATED
+                objID : 0 , // Last Object ID
+                genObjID : function() {
+                    Stage._.objID++; return Stage._.objID;
+                } ,
+                
+                // NAME RELATED
+                genName : function() {
+                    var r = Math.floor(Math.random()*(10000)); // 0000 - 9999 , 4 digits , original formula: [ Math.floor(Math.random() * (1+max-min)) + min; ]
+                    if( r > 999 ) {
+                        return 'instance' + String(r);
+                    } else if( r > 99 ) {
+                        return 'instance0' + String(r);
+                    } else if( r > 9 ) {
+                        return 'instance00' + String(r);
+                    } else {
+                        return 'instance000' + String(r);
+                    }                                        
+                }
+            } ,
+            init : function() {
+                trace( 'Stage init' , this._.v , this );                
+                /*
+                trace( '.....' );                
+                
+                //var a =  document.getElementsByTagName('*');
+                var a =  document.body.getElementsByTagName('div');
+                trace( a , a.length );
+                trace( '\t>>>>>' );
+                
+                var i = 0;
+                var L = a.length;
+                for( i = 0 ; i < L ; i++ ) {
+                    trace( a[i] );
+                }
+                
+                trace( '\t<<<<<' );
+                trace( '.....' );
+                */
+            } ,
+            
+            align : function( value ){
+                if( value == undefined || value == null ) {
+                    
+                }
+                return null;
+            } ,
+            
+            frameRate : function( value ){
+                if( value == undefined || value == null ) {
+                    
+                }
+                return 1;
+            } ,
+            
+            mouseX : function(){
+                return 0;
+            } ,
+            mouseY : function(){
+                return 0;
+            } ,
+            
+            parent : function(){
+                return null;
+            } ,
+            
+            stage : function(){
+                return null;
+            } ,
+            
+            stageWidth : function() {
+                //trace( 'stageWidth' , this._.VPS );                
+                switch( this._.VPS ) {
+                    case 1: return window.innerWidth;
+                    case 2: return document.documentElement.clientWidth;
+                    case 3: return document.body.clientWidth;
+                    
+                    case 4: // Viewport Size is UNKNOWN
+                        return 0;
+                    
+                    default: // VPN = 0;
+                        this._.initVPS();
+                        return Stage.stageWidth();
+                        break;
+                }
+            } ,
+            stageHeight : function() {                
+                //trace( 'stageHeight' , this._.VPS );                
+                switch( this._.VPS ) {
+                    case 1: return window.innerHeight;
+                    case 2: return document.documentElement.clientHeight;
+                    case 3: return document.body.clientHeight;
+                    
+                    case 4: // Viewport Size is UNKNOWN
+                        return 0;
+                    
+                    default: // VPN = 0;
+                        this._.initVPS();
+                        return Stage.stageHeight();
+                        break;
+                }                
+            } ,            
+            
+            // LISTENER RELATED FUNCTIONS
+            numEventListeners : function(){
+               return 0; 
+            } ,
+            addEventListeners : function() {                
+            } ,
+            addEventListener : function( type , listener ) {                
+            } ,
+            hasEventListeners : function( /* all / type / types */ ) {                
+            } ,
+            hasEventListener : function( type , listener ) {                
+            } ,
+            getEventListeners : function( /* all / type / types */ ) {                
+            } ,
+            getEventListener : function( type , listener ) {                
+            } ,
+            removeEventListeners : function( /* all / type / types */ ) {
+            } ,
+            removeEventListener : function( type , listener ) {                
+            } ,
+            willTrigger : function( /* all / type / types */ ) {
+                
+            } ,
+            
+            // RENDER RELATED FUNCTIONS
+            update : function( updateAll ) {
+                if( updateAll == undefined || updateAll == null ) {
+                    updateAll = false;
+                };
+            },
+            
+            // CHILD RELATED FUNCTIONS
+            numChildren : function () {
+                if( this._.children == null || this._.children == undefined ) {
+                    this._.children = [];
+                }
+                trace( this._.children.length );
+                
+                return 0;
+            } ,            
+            addChildren : function() {
+                return null;
+            } ,
+            addChild : function( child ) {
+                return null;
+            } ,
+            addChildAt : function( child , index ) {
+                return null;
+            } ,
+            hasChildren : function() {
+                return false;
+            } ,
+            hasChild : function( child ) {
+                return false;
+            } ,
+            getChildren : function() {
+                return null;
+            } ,
+            getChildAt : function( index ) {
+                return null;
+            } ,
+            getChildByName : function ( name ) {
+                return null;
+            } ,
+            getChildIndex : function ( child ) {
+                return -1;
+            } ,
+            removeChildren : function () {
+                return null;
+            } ,
+            removeChild : function ( child ) {
+                return null;
+            } ,
+            removeChildAt : function ( index ) {
+                return null;
+            } ,
+            setChildIndex : function ( child , index ) {
+                return null;
+            } ,
+            swapChildren : function ( child1 , child2 ) {
+                return null;
+            } ,
+            swapChildrenAt : function ( index1 , index2 ) {
+                return null;
+            } ,
+            
+            _____ : 00000
+        };
+        
+        
+        
+        //Stage.init();
+        //trace( Stage._.v );
+        
+        //Stage.numChildren();
+        
+        
+        
+        function onLOAD() {
+            
+            
+            var ta = document.createElement('input');            
+            //var ta = document.createElement('textarea');
+            ta.style.position = 'absolute';
+            ta.style.width = '200px';
+            ta.style.height = '200px';
+            //ta.style.lineHeight = '10';
+            ta.style.fontFamily = 'Verdana';
+            ta.style.fontSize = '12px';
+            ta.style.verticalAlign = 'text-bottom';
+            //ta.style.align = 'right';
+            ta.style.textAlign = 'center';
+            ta.style.border = '0';
+            ta.style.outline = 'none';
+            //ta.style.textDecoration = 'blink';
+            ta.style.resize = 'none';
+            //ta.align = 'right';
+            ta.type = 'text';
+            ta.value = 'hello you!';
+            document.body.appendChild( ta );
+            trace( ta );
+                        
+            
+            //var t = new TextField();            
+            //document.body.appendChild( t._.ta );
+            
+            //testDraw();
+            //Stage.init();
+            
+            //trace( Stage.stageWidth() , Stage.stageHeight() );
+                        
+            //var group = new Group();                        
+            //trace( group.name() , group._.id );             
+            //trace( group._.d.style )
+            
+            /*
+            function getPos(e) {
+                e = e || window.event;
+                var cursor = {x:0, y:0};
+                if (e.pageX || e.pageY) {
+                cursor.x = e.pageX;
+                cursor.y = e.pageY;
+                }
+                else {
+                cursor.x = e.clientX +
+                (document.documentElement.scrollLeft ||
+                document.body.scrollLeft) -
+                document.documentElement.clientLeft;
+                cursor.y = e.clientY +
+                (document.documentElement.scrollTop ||
+                document.body.scrollTop) -
+                document.documentElement.clientTop;
+                }
+                return cursor;
+            }            
+            */
+            //trace( getPos().x , getPos().y );
+            
+            /*
+            if ( event.pageX == null && event.clientX != null ) {
+                var doc = document.documentElement, body = document.body;
+                event.pageX = event.clientX + (doc && doc.scrollLeft || body && body.scrollLeft || 0) - (doc && doc.clientLeft || body && body.clientLeft || 0);
+                event.pageY = event.clientY + (doc && doc.scrollTop  || body && body.scrollTop  || 0) - (doc   && doc.clientTop  || body && body.clientTop  || 0);
+            }
+            */
+            
+            /*
+            var group = new Group();            
+            trace( group.x() , group.y() );            
+            group.x( 10 );
+            group.y( 21 );            
+            trace( group.x() , group.y() );            
+            document.body.appendChild( group._.d );            
+            */
+        };
+        
+        // GROUP -> Simple Container , low-styled div
+        function Group(){
+            this._ = {
+                d : null , // inner Div
+                
+                id : null , // unique Object ID
+                n : null , // name
+                
+                v : true , // visibility
+                a : 1 , // alpha
+                
+                x : 0 , // x position
+                y : 0 , // y position
+                w : 0 , // width
+                h : 0 , // height
+                
+                rX : 0 , // registration point x
+                rY : 0 , // registration point y
+                
+                r : 0 , // rotation in degree
+                sX : 1 , // scaleX
+                sY : 1 // scaleY
+            };
+            
+            this.name = function( value ) {
+                if( value != undefined ) { this._.n = value; }
+                return this._.n;
+            }
+            
+            this.x = function( value ) {
+                if( value != undefined ) { this._.x = value; }
+                return this._.x;
+            }
+            this.y = function( value ) {
+                if( value != undefined ) { this._.y = value; }
+                return this._.y;
+            }
+            
+            // Initializing Block
+                this._.id = Stage._.genObjID();
+                this._.n = Stage._.genName();
+                
+                // temporarly
+                this._.d = document.createElement('div');
+                //this._.d.innerHTML = '.';
+                this._.d.style.position = 'absolute';
+                this._.d.style.left = '100px';
+                this._.d.style.top = '100px';
+                this._.d.style.width = '50px';
+                this._.d.style.height = '50px';
+                this._.d.style.backgroundColor = '#FF0000';
+        }; 
+            
+            function Shape(){}; // Simple low-styled div, has graphics that draws on an inner canvas/SVG/VML
+            function Canvas(){}; // cross browser drawing element
+                function CVS(){}; // canvas element
+                function SVG(){}; // SVG element
+                function VML(){}; // VML element
+            function TextField(){                
+                this._ = {
+                    ta : null , // inner HTMLTextAreaElement
+                    ti : null , // inner 
+
+                    id : null , // unique Object ID
+                    n : null , // name
+
+                    v : true , // visibility
+                    a : 1 , // alpha
+
+                    x : 0 , // x position
+                    y : 0 , // y position
+                    w : 0 , // width
+                    h : 0 , // height
+
+                    rX : 0 , // registration point x
+                    rY : 0 , // registration point y
+
+                    r : 0 , // rotation in degree
+                    sX : 1 , // scaleX
+                    sY : 1 , // scaleY
+                    t : '' // text
+                };
+                
+                this._.ta = document.createElement('textarea');
+                this._.ta.style.resize = 'none';
+                this._.ta.value = 'hello you!';
+            };
+            
+        
+        
+        
+        function Sprite() {
+            var _d = null;
+            
+            var _x = 0; // x position , style.left
+            var _y = 0; // y position , style.top
+            var _w = 0; // width , style.width
+            var _h = 0; // height , style.height
+            
+            var _rX = 0; // x registration point
+            var _rY = 0; // y registration point
+            
+            var _r = 0; // rotation , crossbrowser solution
+            var _sX = 1; // scaleX , crossbrowser solution
+            var _sY = 1; // scaleY , crossbrowser solution            
+            
+            var _v = true; // visibility , style.display
+            var _a = 1; // alpha , crossbrowser solution
+            
+            function init() {
+                _d = document.createElement('div');
+                _d.style.position = 'absolute';
+                _d.style.left = '0px';
+                _d.style.top = '0px';
+                _d.style.width = '100px';
+                _d.style.height = '100px';
+                _d.style.display = '';
+                
+                _d.style.opacity = '1';
+                _d.style.filter = 'alpha(opacity=100)';
+                _d.style.zoom = '1';
+                
+                _d.style.backgroundColor = '#FF0000';                
+                
+                var dot = document.createElement('div');
+                    dot.style.position = 'absolute';
+                    dot.style.left = '10px';
+                    dot.style.top = '10px';
+                    dot.style.width = '10px';
+                    dot.style.height = '10px';
+                    dot.style.backgroundColor = '#000000';
+                _d.appendChild( dot );
+            };
+            
+            this.x = function( value ) {
+                if( value != undefined ) { _x = value; }
+                _d.style.left = String(_x+'px');
+                return _x;
+            }
+            
+            this.y = function( value ) {
+                if( value != undefined ) { _y = value; }
+                _d.style.top = String(_y+'px');
+                return _y;
+            }
+            
+            this.width = function( value ) {
+                if( value != undefined ) { _w = value; }
+                _d.style.width = String(_w+'px');
+                return _w;
+            }
+            
+            this.height = function( value ) {
+                if( value != undefined ) { _h = value; }
+                _d.style.height = String(_h+'px');
+                return _h;
+            }
+            
+            this.visible = function( value ) {
+                if( value != undefined ) { _v = value; }
+                _d.style.display = ( _v == true ) ? '' : 'none' ;
+                return _v;
+            }
+            
+            this.alpha = function( value ) {
+                if( value != undefined ) { _a = value; }
+                _d.style.opacity = String(_a);
+                _d.style.filter = 'alpha(opacity='+String((_a*100))+')';
+                return _a;
+            }
+            
+            this.rotation = function( value ) {
+                if( value != undefined ) { _r = value; }                
+                updateTransform();                
+                return _r;
+            }
+            
+            this.scaleX = function( value ) {
+                if( value != undefined ) { _sX = value; }                
+                updateTransform();                
+                return _sX;
+            }
+            this.scaleY = function( value ) {
+                if( value != undefined ) { _sY = value; }                
+                updateTransform();                
+                return _sY;
+            }
+            
+                function updateTransform() {
+                    var tt = '';
+                    tt += 'rotate('+String(_r)+'deg) ';
+                    tt += 'scale('+String(_sX)+','+String(_sY)+') ';
+                    
+                    _d.style.MozTransform = tt;
+                    _d.style.MozTransformOrigin = '50% 50%'; 
+                };
+            
+            this.rawData = function() {
+                return _d;
+            };
+            
+            init();
+        }
+    </script>
+    
+    <script type="text/javascript">
+                
+        function testDraw() {
+                        
+            var s = new Sprite();
+            
+            document.body.appendChild( s.rawData() );
+            
+            s.x( 150 );
+            s.y( 50 );
+            s.width( 125 );
+            s.height( 125 );
+            //s.visible( true );
+            s.alpha( 0.5 );
+            
+            s.rotation( 45 );
+            s.scaleX( 0.25 );
+            s.scaleY( 0.25 );
+            
+            trace( s.x() , s.y() );
+            trace( s.scaleX() , s.scaleY() );
+            
+            var a = 0x80FFFFFF;
+            trace( a );
+            
+            //trace('hello you!');
+            
+            /*
+            var d = new DisplayObject();            
+            d.x( 10 );            
+            trace( d.x() );
+            */
+           
+            /*
+            var d = new DisplayObject();
+            d.x = 11;            
+            trace( d.x );           
+            
+            var iObj = new InteractiveObject();
+            iObj.x = 14;
+            trace( iObj.x );
+            
+            trace('   ');
+            trace( d instanceof DisplayObject );
+            trace( iObj instanceof DisplayObject );
+            */           
+        }
+        
+        function Style_() {
+            this.position = 123;
+            this['-position'] = 321;
+        }
+        
+        function Div() {
+            var _rawData = document.createElement('div');
+            
+            this.x = 10;
+            this.y = 11;
+            
+            //this = div;
+            
+            var _style = new Style_();
+            
+            this.style = _style;
+            
+            this.rawData = function() {
+                return _rawData;
+            }
+        }
+        
+        function createFrame() {
+            //trace('hello you!');
+            
+            var div = document.createElement( 'div' );
+		div.id = '__div';
+                div.style.position = 'relative';
+                div.style.left = '10px';
+                div.style.top = '10px';
+                div.style.width = '250px';
+                div.style.height = '250px';
+            document.body.appendChild( div );
+            
+            var table = document.createElement( 'table' );
+                table.id = '__table';
+                table.style.borderWidth = '1px';
+                table.style.borderStyle = 'dotted';
+                table.style.borderColor = '#000000';                
+                //table.style.insertRule ('{border-color:blue;}');
+                //table.style.addRule ('{border-color:blue;}');
+                table.style.position = 'relative';
+                table.style.left = '10px';
+                table.style.top = '10px';
+                table.style.width = '100px';
+                table.style.height = '100px';
+                
+                //table.style.MozTransform = 'rotate(47deg)';
+                //table.style.MozTransformOrigin = 'center center';
+                
+                //trace( table.style['width'] );
+                //table.style['width'] = '250px';
+                //trace( table.style.content );
+                
+                //table.style.setAttribute('width','255px');
+                
+                //trace( table.style );
+            div.appendChild( table );
+            
+                var tbody = document.createElement('tbody');            
+                table.appendChild( tbody );
+                
+                    var row = document.createElement('tr');
+                    tbody.appendChild( row );
+                    
+                        var TL = document.createElement('td');
+                            TL.style.backgroundColor = '#FF0000';
+                            TL.style.position = 'absolute';
+                            TL.style.left = '10px';
+                            TL.style.top = '10px';
+                            TL.style.width = '10px';
+                            TL.style.height = '10px';                            
+                        row.appendChild( TL );
+                        
+                        var TM = document.createElement('td');
+                            TM.style.backgroundColor = '#00FF00';
+                            TM.style.position = 'absolute';
+                            TM.style.left = '20px';
+                            TM.style.top = '10px';
+                            TM.style.width = '10px';
+                            TM.style.height = '10px';                                                        
+                        row.appendChild( TM );
+        }
+        
+        
+    </script>
+</html>

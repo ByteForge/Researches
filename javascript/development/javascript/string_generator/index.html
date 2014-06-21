@@ -1,0 +1,530 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>page title</title>
+	
+	<script type="text/javascript">
+		function trace() {
+			var r = '';
+			var a = arguments;
+			var L = a.length;
+			var i = 0;
+			if( L > 0 ) {
+				for( i = 0 ; i < L ; i++ ) {
+					r += a[i];
+					if( i+1 < L ) {r += ' , ';}
+				}
+			} else {
+				r = " ";
+			}
+			//alert( r );
+			
+			if( console.debug ) { // FF
+				console.debug(r);
+			} else if( console.log ) { // IE9
+				console.log(r);
+			}
+			//document.body.innerHTML += r + '<br>';
+		};
+		
+		function onLOADED( fn ){
+			window._intervalID = 0;
+			window._intervalFunction = function(){
+				if( document.body ){
+					window.clearInterval( window._intervalID );
+					fn();
+				}
+			};
+			window._intervalID = window.setInterval( window._intervalFunction , 100 );
+		};
+		
+		/* VERSION 0 */(function( root ){
+			
+			"use strict";
+			
+			//trace( root );
+		
+			var uniqueIDs = [];
+			var uniqueIDsLength = 0;
+			
+			var uniqueCharacterSet_numbers = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" ];
+			var uniqueCharacterSet_letters_lowerCase = [ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" ];
+			var uniqueCharacterSet_letters_upperCase = [ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" ];
+			var uniqueCharacterSet_punctuations = [ " ", "!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|", "}", "~" ];
+			
+			var uniqueSwitchDefaultValue_length = 16;
+			var uniqueSwitchDefaultValue_numbers = true;
+			var uniqueSwitchDefaultValue_letters = true;
+			var uniqueSwitchDefaultValue_punctuations = true;
+			
+			var uniqueSwitch_length;
+			var uniqueSwitch_useNumbers;
+			var uniqueSwitch_useLetters;
+			var uniqueSwitch_usePunctuations;
+			
+			var generateUniqueID = function( parameters, security ) {
+				
+				//trace( typeof parameters );
+				//trace( typeof parameters === "undefined" );
+				//trace( typeof parameters !== "undefined" );
+				
+				uniqueSwitch_length = uniqueSwitchDefaultValue_length;
+				uniqueSwitch_useNumbers = uniqueSwitchDefaultValue_numbers;
+				uniqueSwitch_useLetters = uniqueSwitchDefaultValue_letters;
+				uniqueSwitch_usePunctuations = uniqueSwitchDefaultValue_punctuations;
+				
+				if( typeof parameters === "undefined" ) {
+					trace( "no parameters are given" );
+				} else {
+					trace( "some parameters are given" );
+					
+					//trace( typeof parameters , parameters , Object.prototype.toString.call( parameters ) );
+					
+					var typeOf = Object.prototype.toString.call( parameters );
+					
+					for( var o in parameters ) {
+						if( parameters.hasOwnProperty( o ) === true ) {
+							trace( "\t", o );
+						}
+					}
+					
+					if( typeOf === "[object Object]" ) {
+					
+						if( typeof parameters.length === "number" && parameters.length === parameters.length ) {
+							uniqueSwitch_length = parameters.length;
+						} else {
+							uniqueSwitch_length = uniqueSwitchDefaultValue_length;
+						}
+						
+						if( typeof parameters.numbers === "boolean" || typeof parameters.numbers === "number" ) {
+							uniqueSwitch_useNumbers = Boolean( parameters.numbers );
+						} else {
+							uniqueSwitch_useNumbers = uniqueSwitchDefaultValue_numbers;
+						}
+						
+						if( typeof parameters.letters === "boolean" || typeof parameters.letters === "number" ) {
+							uniqueSwitch_useLetters = Boolean( parameters.letters );
+						} else {
+							uniqueSwitch_useLetters = uniqueSwitchDefaultValue_letters;
+						}
+						
+						if( typeof parameters.punctuations === "boolean" || typeof parameters.punctuations === "number" ) {
+							uniqueSwitch_usePunctuations = Boolean( parameters.punctuations );
+						} else {
+							uniqueSwitch_usePunctuations = uniqueSwitchDefaultValue_punctuations;
+						}
+					
+					} else {
+					
+					}
+					
+					trace( "length: ", uniqueSwitch_length );
+					trace( "numbers: ", uniqueSwitch_useNumbers );
+					trace( "letters: ", uniqueSwitch_useLetters );
+					trace( "punctuations: ", uniqueSwitch_usePunctuations );
+					
+					var characterSet = [];
+					var characterSetLength = 0;
+					
+					// IMPLEMENT: CHECK CHANGES FROM LAST CALL
+					
+					if( uniqueSwitch_useNumbers === true ) {
+						for( var i = uniqueCharacterSet_numbers.length; i--; ) {
+							characterSet[ characterSetLength++ ] = uniqueCharacterSet_numbers[ i ];
+						}
+					}
+					if( uniqueSwitch_useLetters === true ) {
+						for( var i = uniqueCharacterSet_letters_lowerCase.length; i--; ) {
+							characterSet[ characterSetLength++ ] = uniqueCharacterSet_letters_lowerCase[ i ];
+						}
+					}
+					if( uniqueSwitch_usePunctuations === true ) {
+						for( var i = uniqueCharacterSet_punctuations.length; i--; ) {
+							characterSet[ characterSetLength++ ] = uniqueCharacterSet_punctuations[ i ];
+						}
+					}
+					
+					trace( "characterSet: ", characterSet );
+					trace( "characterSet lengths: ", characterSet.length, characterSetLength );
+					
+					var getRandomRange = function( min, max ) {
+						return parseInt( Math.random() * ( max - min + 1 ) ) + min;
+					};
+					
+					var generatedID;
+					
+					for(;;) {
+					
+						var unique = true;
+						
+						generatedID = "";
+						
+						for( var i = uniqueSwitch_length, L = characterSetLength-1; i--; ) {
+							generatedID += characterSet[ getRandomRange( 0, L ) ];						
+						}
+					
+						for( var i = uniqueIDsLength; i--; ) {
+							if( uniqueIDs[ i ] === generatedID ) {
+								unique = false;
+								trace( "\t\t\t\t-----", "found match: ", uniqueIDs[ i ], " with: ", generatedID, "     at array position: ", i );
+								break;
+							}
+						}
+						
+						if( unique === true ) {
+							uniqueIDs[ uniqueIDsLength++ ] = generatedID;
+							trace( "\t\t\t\t*****", "generatedID is unique: ", generatedID );
+							break;
+						}
+					}
+					
+					trace( "generatedID: ", generatedID, "\t\tuniqueIDs: ", uniqueIDs );					
+				}
+				
+				var r = "uniqueID..";
+				
+				return r;
+			}
+			//generateUniqueID.length = 16;
+			//generateUniqueID.numbers = true;
+			//generateUniqueID.letters = true;
+			//generateUniqueID.punctuations = true;
+		
+			// NEXT STRING GENERATOR IMPLEMENTATIONS
+			var generateString = function( parameters, security ) {};
+			var modifyString = function( parameters, security ) {};
+		
+			root.generateUniqueID = generateUniqueID;
+		
+		})(this);
+		
+		/* VERSION 1 */(function( root ){
+		
+			"use strict";
+			
+			//trace( root );
+		
+			// CHARACTER SETS			
+			var binarySet = [ "0", "1", "0", "1", "0", "1", "0", "1", "0", "1", ];
+			var binarySetLength = 10;
+			var octalSet = [ "0", "1", "2", "3", "4", "5", "6", "7" ];
+			var octalSetLength = 8;
+			var decimalSet = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" ];
+			var decimalSetLength = 10;
+			var hexSet = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" ];
+			var hexSetLength = 16;
+			var base32Set = []; /* IMPLEMENT */
+			var base32SetLength = 0;
+			var base64Set = []; /* IMPLEMENT */
+			var base64SetLength = 0;
+			var alphabetSet = [ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" ];
+			var alphabetSetLength = 52;
+			var symbolSet = [ " ", "!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|", "}", "~" ];
+			var symbolSetLength = 33;
+			
+			// UNIQUE ID - storage for unique IDs
+			var uniqueID = [];
+			var uniqueIDLength = 0;
+			
+			// PERFORMANCE SHORTCUTS
+			var typeOf = Object.prototype.toString; // typeof check against Arrays
+			var negativeInfinity = Number.NEGATIVE_INFINITY;
+			var positiveInfinity = Number.POSITIVE_INFINITY;
+			var typeOfUndefined = "undefined";
+			var typeOfObject = "[object Object]";
+			var typeOfBoolean = "boolean";
+			var typeOfNumber = "number";
+			
+				var mainObj; //Performance Helper
+				var subObj; //Performance Helper
+			
+			// LENGTH
+			var gotLength = false;
+			var gotMinLength = false;
+			var gotMaxLength = false;
+			var gotAvgLength = false;
+			
+			var length = 16;
+			var minLength = 4;
+			var maxLength = 16;
+			var avgLength = 10;
+			// CHARACTER SET
+			var gotNumbers = false;
+			var gotLetters = false;
+			var gotPunctuations = false;
+			
+			var useNumbers = false;
+			var useLetters = false;
+			var usePunctuations = false;
+			
+			var genUID = function( p, s ) {			
+				var r = "";
+			
+				gotLength = false;
+				gotMinLength = false;
+				gotMaxLength = false;
+				gotAvgLength = false;			
+				
+				gotNumbers = false;
+				gotLetters = false;
+				gotPunctuations = false;
+				
+				if( typeof p === typeOfUndefined ) {
+					trace( "no parameters are given" );
+				} else {
+					trace( "some parameters are given" );
+					
+					if( typeOf.call( p ) === typeOfObject ) {
+					
+						// PARSE FOR length property						
+						if( typeof ( mainObj = p.length ) !== typeOfUndefined ) {
+							trace( "\t", "length:" );
+							
+							//mainObj = p.length;
+							if( typeof mainObj === typeOfNumber ) {
+								if( mainObj !== positiveInfinity && mainObj !== negativeInfinity ) {
+									trace( "\t\t", "useable number:", mainObj )
+									gotLength = true;
+									length = mainObj;
+								}
+							} else if( typeOf.call( mainObj ) === typeOfObject ) {
+								trace( "\t\t", "useable object" );
+								
+								// PERFORMANCE TEST: check multiple IFs against || assignment
+								
+								// PARSE FOR length.min
+								if(	typeof ( subObj = mainObj.min ) === typeOfNumber ||
+									typeof ( subObj = mainObj.minimum ) === typeOfNumber ||
+									typeof ( subObj = mainObj.MIN ) === typeOfNumber ||
+									typeof ( subObj = mainObj.MINIMUM ) === typeOfNumber									
+								) {								
+									if( subObj === subObj && subObj !== positiveInfinity && subObj !== negativeInfinity ) {
+										trace( "\t\t\t", "usable p.length.min:", subObj );
+										gotMinLength = true;
+										minLength = subObj;
+									}									
+								}
+								// PARSE FOR length.max
+								if( 	typeof ( subObj = mainObj.max ) === typeOfNumber ||
+									typeof ( subObj = mainObj.maximum ) === typeOfNumber ||
+									typeof ( subObj = mainObj.MAX ) === typeOfNumber ||
+									typeof ( subObj = mainObj.MAXIMUM ) === typeOfNumber
+								) {								
+									if( subObj === subObj && subObj !== positiveInfinity && subObj !== negativeInfinity ) {
+										trace( "\t\t\t", "usable p.length.max:", subObj );
+										gotMaxLength = true;
+										maxLength = subObj;
+									}
+								}
+								// PARSE FOR length.mostly
+								if( 	typeof ( subObj = mainObj.mostly ) === typeOfNumber ||
+									typeof ( subObj = mainObj.avg ) === typeOfNumber ||
+									typeof ( subObj = mainObj.average ) === typeOfNumber ||
+									typeof ( subObj = mainObj.MOSTLY ) === typeOfNumber ||
+									typeof ( subObj = mainObj.AVG ) === typeOfNumber ||
+									typeof ( subObj = mainObj.AVERAGE ) === typeOfNumber
+								) {								
+									if( subObj === subObj && subObj !== positiveInfinity && subObj !== negativeInfinity ) {
+										trace( "\t\t\t", "usable p.length.mostly:", subObj );
+										gotAvgLength = true;
+										avgLength = subObj;
+									}
+								}
+							}
+						}
+						// PARSE FOR number character sets
+						if(	typeof ( mainObj = p.numbers ) !== typeOfUndefined ||						
+							typeof ( mainObj = p.number ) !== typeOfUndefined ||						
+							typeof ( mainObj = p.NUMBERS ) !== typeOfUndefined ||						
+							typeof ( mainObj = p.NUMBER ) !== typeOfUndefined 
+						) {
+							gotNumbers = true;
+							
+							trace( "\t", "numbers:" );
+							trace( "\t\t", typeof mainObj );
+							
+							if( typeof mainObj === typeOfBoolean ) {
+								trace( "\t\t\t boolean:", mainObj );
+								useNumbers = mainObj;
+							} else if( typeof mainObj === typeOfNumber && mainObj === mainObj && mainObj !== positiveInfinity && mainObj !== negativeInfinity ) {
+								trace( "\t\t\t number:", mainObj );
+								if( mainObj > 0 ) {
+									trace( "\t\t\t as boolean: true" );
+									useNumbers = true;
+								} else {
+									trace( "\t\t\t as boolean: false" );
+									useNumbers = false;
+								}
+							} else {
+								useNumbers = false;
+							}
+						}
+						// PARSE FOR letter character sets
+						if(	typeof ( mainObj = p.letters ) !== typeOfUndefined ||						
+							typeof ( mainObj = p.letter ) !== typeOfUndefined ||						
+							typeof ( mainObj = p.LETTERS ) !== typeOfUndefined ||						
+							typeof ( mainObj = p.LETTER ) !== typeOfUndefined 
+						) {
+							gotLetters = true;
+							
+							trace( "\t", "letters:" );
+							trace( "\t\t", typeof mainObj );
+							
+							if( typeof mainObj === typeOfBoolean ) {
+								trace( "\t\t\t boolean:", mainObj );
+								useLetters = mainObj;
+							} else if( typeof mainObj === typeOfNumber && mainObj === mainObj && mainObj !== positiveInfinity && mainObj !== negativeInfinity ) {
+								trace( "\t\t\t number:", mainObj );
+								if( mainObj > 0 ) {
+									trace( "\t\t\t as boolean: true" );
+									useLetters = true;
+								} else {
+									trace( "\t\t\t as boolean: false" );
+									useLetters = false;
+								}
+							} else {
+								useLetters = false;
+							}
+						}
+						// PARSE FOR punctuation character sets
+						if(	typeof ( mainObj = p.punctuations ) !== typeOfUndefined ||
+							typeof ( mainObj = p.punctuation ) !== typeOfUndefined ||
+							typeof ( mainObj = p.PUNCTUATIONS ) !== typeOfUndefined ||
+							typeof ( mainObj = p.PUNCTUATION ) !== typeOfUndefined ||
+							typeof ( mainObj = p.symbols ) !== typeOfUndefined ||
+							typeof ( mainObj = p.symbol ) !== typeOfUndefined ||
+							typeof ( mainObj = p.SYMBOLS ) !== typeOfUndefined ||
+							typeof ( mainObj = p.SYMBOL ) !== typeOfUndefined
+						) {
+							gotPunctuations = true;
+							
+							trace( "\t", "punctuations:" );
+							trace( "\t\t", typeof mainObj );
+							
+							if( typeof mainObj === typeOfBoolean ) {
+								trace( "\t\t\t boolean:", mainObj );
+								usePunctuations = mainObj;
+							} else if( typeof mainObj === typeOfNumber && mainObj === mainObj && mainObj !== positiveInfinity && mainObj !== negativeInfinity ) {
+								trace( "\t\t\t number:", mainObj );
+								if( mainObj > 0 ) {
+									trace( "\t\t\t as boolean: true" );
+									usePunctuations = true;
+								} else {
+									trace( "\t\t\t as boolean: false" );
+									usePunctuations = false;
+								}
+							} else {
+								usePunctuations = false;
+							}
+						}
+					}
+				}
+			
+				//trace( "gotLength:" , gotLength, "   length:", length );
+				//trace( "gotMinLength:" , gotMinLength, "   minLength:", minLength );
+				//trace( "gotMaxLength:" , gotMaxLength, "   maxLength:", maxLength );
+				//trace( "gotAvgLength:" , gotAvgLength, "   avgLength:", avgLength );
+				
+				if( gotLength === true ) {
+					trace( "EXACTLY length:", length );
+				} else {
+					if( gotMinLength === true && gotMaxLength === true ) {
+						if( gotAvgLength === true ) {
+							trace( "BETWEEN AND MOSTLY length", minLength, maxLength, avgLength );
+						} else {
+							trace( "BETWEEN length", minLength, maxLength );
+						}
+					} else if( gotMinLength === false && gotMaxLength === false && gotAvgLength === false ) {
+						trace( "NO LENGTH PARAMETERS GIVEN" );
+					} else {
+						trace( "UNCORRECTLY GIVEN PARAMETERS" );
+					}
+				}
+			
+				return r;
+			}
+			
+			root.genUID = genUID;
+			
+			// LENGTH POSSIBILITIES
+				// length: number - exactly
+					//genUID( { length: 10 } );
+				// length: { min: number } - at least
+					//genUID( { length: { min: 5 } } );
+					//genUID( { length: { minimum: 6 } } );
+					//genUID( { length: { min:5, minimum: 6 } } );
+				// length: { min: number, max: number } - between
+					//genUID( { length: { min: 5, max: 10 } } );
+				// length: { min: number, max: number, mostly: number } - between and mostly
+					//genUID( { length: { MINIMUM: 5, max: 10, mostly: 8 } } );
+					//genUID( { length: { MINIMUM: 5, max: 10, AVG: 8 } } );
+					//genUID( { length: { MIN: 5, MAXIMUM: 9, AVG: 7 } } );
+			// CHARACTER SET POSSIBILITIES
+				// numbers
+					//genUID( { numbers: true } );
+					//genUID( { numbers: 0 } );
+				// letters
+					//genUID( { letters: true } );
+					//genUID( { LETTER: 1 } );
+				// punctuations
+					//genUID( { punctuations: true } );
+					//genUID( { punctuations: 0 } );
+					//genUID( { punctuations: 2 } );
+		})( this );
+		
+		onLOADED(function(){
+			
+			window.document.title = "String Generator";
+			
+			//trace("loaded"); trace();
+			
+			//trace( generateUniqueID() );
+			
+			//generateUniqueID();
+			//generateUniqueID( true );
+			//generateUniqueID( NaN );
+			//generateUniqueID( null );
+			//generateUniqueID( 123 );
+			//generateUniqueID( "" );
+			//generateUniqueID( {} );
+			//generateUniqueID( [] );
+			
+			//generateUniqueID( { length: 1, numbers: true, letters: false, punctuations: false } );
+			//generateUniqueID( { length: 1, numbers: true, letters: false, punctuations: false } );
+			//generateUniqueID( { length: 1, numbers: true, letters: false, punctuations: false } );
+			//generateUniqueID( { length: 1, numbers: true, letters: false, punctuations: false } );
+			//generateUniqueID( { length: 1, numbers: true, letters: false, punctuations: false } );
+			//generateUniqueID( { length: 1, numbers: true, letters: false, punctuations: false } );
+			//generateUniqueID( { length: 1, numbers: true, letters: false, punctuations: false } );
+			//generateUniqueID( { length: 1, numbers: true, letters: false, punctuations: false } );
+			//generateUniqueID( { length: 1, numbers: true, letters: false, punctuations: false } );
+			//generateUniqueID( { length: 1, numbers: true, letters: false, punctuations: false } );
+			
+			//genUID( { length: 10 } );
+			
+			var n = -2.1;
+			
+			trace( n , " -> normal parseInt / Math.floor()" , parseInt( n ) );
+			trace( n , " -> faster parseInt / Math.floor()" , ~~( n ) );			
+			
+			trace();
+			trace( n , " -> normal Math.ceil()" , Math.ceil( n ) );
+			//trace( n , " -> faster Math.ceil()" , ~~( n + 1 ) );
+			trace( n , " -> faster Math.ceil()" , ~~( n + ( ( n % ~~( n ) > 0 ) ? 1 : 0 ) ) );
+			
+			trace();
+			trace( n, " -> normal Math.abs()", Math.abs( n ) );
+			trace( n, " -> faster Math.abs()", ( ( n > 0 ) ? n : -n ) );
+			
+			trace();			
+			trace( n , " -> normal Math.round()" , Math.round( n ) );			
+			//trace( n , " -> faster Math.round()" , ~~( 0.5 + n ) );
+			//trace( n , " -> faster Math.round()" , ~~( ( n > -0.5000000000000001 ) ? 0.5 + n : -0.5 + n ) );
+			trace( n , " -> faster Math.round()" , ~~( n + ( n > -0.5000000000000001 ? 0.5 : -0.5 ) ) );
+		});
+		
+	</script>
+</head>
+	<body>
+	</body>
+</html>

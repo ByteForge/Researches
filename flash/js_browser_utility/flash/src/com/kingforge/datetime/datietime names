@@ -1,0 +1,72 @@
+
+	ENG:
+		months:
+			01.:	january
+			02.:	february
+			03.:	march
+			04.:	april
+			05.:	may
+			06.:	june
+			07.:	july
+			08.:	august
+			09.:	september
+			10.:	october
+			11.:	november
+			12.:	december
+	
+		weekdays:
+			1.:		monday
+			2.: 	tuesday
+			3.: 	wednesday
+			4.: 	thursday
+			5.: 	friday
+			6.: 	saturday
+			7.: 	sunday
+
+	DEU:
+		months:
+			01.:	januar
+			02.:	februar
+			03.:	märz
+			04.:	april
+			05.:	mai
+			06.:	juni
+			07.:	juli
+			08.:	august
+			09.:	september
+			10.:	oktober
+			11.:	november
+			12.:	dezember
+	
+		weekdays:
+			1.:		montag
+			2.: 	dienstag / ziestag
+			3.: 	mittwoch
+			4.: 	donnerstag
+			5.: 	freitag
+			6.: 	samstag / sonnabend
+			7.: 	sonntag
+			
+	FRE:
+		months:
+			01.:	janvier
+			02.:	février
+			03.:	mars
+			04.:	avril
+			05.:	mai
+			06.:	juin
+			07.:	juillet
+			08.:	aout
+			09.:	septembre
+			10.:	octobre
+			11.:	novembre
+			12.:	décembre
+	
+		weekdays:
+			1.:		lundi
+			2.: 	mardi
+			3.: 	mercredi
+			4.: 	jeudi
+			5.: 	vendredi
+			6.: 	samedi
+			7.: 	dimanche

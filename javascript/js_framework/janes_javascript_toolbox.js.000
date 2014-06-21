@@ -1,0 +1,533 @@
+function trace() {
+    var r = '';
+    var a = arguments;
+    var L = a.length;
+    var i = 0;
+    for( i = 0 ; i < L ; i++ ) {
+        r += a[i];
+        if( i+1 < L ) {r += ' , ';}
+    }    
+    //alert( r );
+    console.debug(r);
+    //document.body.innerHTML += r + '<br>';
+}
+
+var jt = new (function(){
+    this.init = function() {
+        //trace( 'hello you!' );
+        
+        //jDocument.title();
+        
+        //jBody.addChild( new jElement );
+        
+        trace('.....');
+
+        var div = new jDiv();        
+        jBody.addChild( div );
+                
+        //var t = new Date().getTime();
+        /*  
+        div.___.div.style.left = '50%';
+        div.___.div.style.top = '50%';
+        div.___.div.style.width = '10px';
+        div.___.div.style.height = '10px';
+        */
+        
+        div.x( '50%' );
+        div.y( '50%' );
+        div.w( '10' );
+        div.h( '10' );
+        
+        //trace( div.x( '50%' ) );
+        //trace( div.y( '50%' ) );
+        //trace( div.w( '10' ) );
+        //trace( div.h( '10' ) );
+
+        //trace( new Date().getTime() - t );
+
+        trace('.....');
+        
+        //div['background-color']();
+
+        //trace( div['background-color'] );
+        //div['background-color']();
+        
+        //trace( div['-background-color'] );
+        //div['-background-color']();
+        
+        //trace( div.css['background-color'] );
+        //div.css['background-color']();
+        
+        //trace( div.x(  ) );
+        //trace( div.css['background-color'](  ) );        
+    }
+})();
+
+/*
+ * $super = this Super Class
+ * $this = this Class
+ * jClass.extends - extending
+ * jClass.override - overriding
+ */
+var jClass = new (function(){
+    
+})();
+
+function jEvent(){};
+
+var jCookies = new (function(){})();
+    function jCookie(){};
+    function jSubCookie(){};
+
+var jBrowser = new (function(){})();
+
+var jDocument = new (function(){
+    
+    this.title = function( value ) {
+        trace( document.title );
+    };
+        
+})();
+
+var jBody = new(function(){
+    var $this = null;
+        
+    this.numChildren = function() {
+        return 0;
+    };
+    
+    this.addChild = function( child ) {
+        if( child instanceof jElement ) {        
+            trace( 'child is an instance of jElement' );
+            if( child instanceof jDiv ) {
+                trace( 'child is an instance of jDiv' );
+                trace( child.___.div );
+                //$this = window.document.body;
+                //trace( $this , window.document.body );
+                
+                $this.appendChild( child.___.div );
+            }
+        } else {
+            trace( child , 'is not applicable' );
+        }
+    };
+    
+    $this = window.document.body;
+    //trace( $this );
+})();
+
+function jElement(){};
+
+jDiv.prototype = new jElement(); 
+jDiv.prototype.constructor = jDiv;
+    jDiv.prototype.init = false
+    jDiv.prototype.rawElement = null;
+    //jDiv.prototype.rawElement = window.document.createElement('div');
+function jDiv() {
+    this.___ = {
+        div : null
+    };
+    var $this = this;
+    var div = null;
+
+    var _e = 0;
+    var _s = 0;
+    var t1 = 0;    
+    
+    this.x = function( value ) {
+        /*
+        var e = 0;
+        if( typeof value === 'number' ) {
+            $this.___.div.style.left = value+'px';
+        } else if( typeof value === 'string' ) {            
+            if( value.indexOf('px') != -1 ) {
+                e = parseFloat( value );if( isNaN( e ) ) {e = 0};
+                $this.___.div.style.left = e+'px';
+            } else if( value.indexOf('%') != -1 ) {
+                e = parseFloat( value );if( isNaN( e ) ) {e = 0};
+                $this.___.div.style.left = e+'%';
+            } else {
+                e = parseFloat( value );if( isNaN( e ) ) {e = 0};
+                $this.___.div.style.left = e+'px';                
+            }
+        }        
+        e = null;
+        return $this.___.div.style.left;
+        */
+        _s = $this.___.div.style;
+        
+        /*
+        if( typeof value === 'number' ) {            
+            _s.left = ( ( value == value ) ? value : 0 )+'px';
+        } else if( typeof value === 'string' ) {            
+            if( value.indexOf('px') != -1 ) {
+                _e = parseFloat( value );
+                _s.left = ( _e == _e ? _e : 0 )+'px';
+            } else if( value.indexOf('%') != -1 ) {
+                _e = parseFloat( value );
+                _s.left = ( _e == _e ? _e : 0 )+'%';
+            } else {
+                _e = parseFloat( value );
+                _s.left = ( _e == _e ? _e : 0 )+'px';
+            }
+        }
+        */
+        //var mT = ( typeof value === 'number' ) ? 1 : ( typeof value === 'string' ? 2 : 3 ) ;
+        //switch (mT) {
+        switch ( ( typeof value === 'number' ) ? 1 : ( typeof value === 'string' ? 2 : 3 ) ) {
+            case 1: // 'number'
+                _s.left = ( ( value == value ) ? value : 0 )+'px'; break;
+            case 2: // 'string'                
+                //_e = parseFloat( value ); _s.left = ( _e == _e ? _e : 0 )+'px'; break;
+                _e = parseFloat( value ); _s.left = ( _e == _e ? _e : 0 )+( value.indexOf('px') !=-1 ? 'px' : ( value.indexOf('%') !=-1 ) ? '%' : 'px' ); break;
+            default:break;
+        }       
+        _e = null;
+        return _s.left;
+    };
+    this.y = function( value ) {
+        var e = 0;
+        if( typeof value === 'number' ) {
+            $this.___.div.style.top = value+'px';
+        } else if( typeof value === 'string' ) {            
+            if( value.indexOf('px') != -1 ) {
+                e = parseFloat( value );if( isNaN( e ) ) {e = 0};
+                $this.___.div.style.top = e+'px';
+            } else if( value.indexOf('%') != -1 ) {
+                e = parseFloat( value );if( isNaN( e ) ) {e = 0};
+                $this.___.div.style.top = e+'%';
+            } else {
+                e = parseFloat( value );if( isNaN( e ) ) {e = 0};
+                $this.___.div.style.top = e+'px';                
+            }
+        }        
+        e = null;
+        return $this.___.div.style.top;
+    };
+    this.w = function( value ) {
+        var e = 0;
+        if( typeof value === 'number' ) {
+            $this.___.div.style.width = value+'px';
+        } else if( typeof value === 'string' ) {            
+            if( value.indexOf('px') != -1 ) {
+                e = parseFloat( value );if( isNaN( e ) ) {e = 0};
+                $this.___.div.style.width = e+'px';
+            } else if( value.indexOf('%') != -1 ) {
+                e = parseFloat( value );if( isNaN( e ) ) {e = 0};
+                $this.___.div.style.width = e+'%';
+            } else {
+                e = parseFloat( value );if( isNaN( e ) ) {e = 0};
+                $this.___.div.style.width = e+'px';                
+            }
+        }        
+        e = null;
+        return $this.___.div.style.width;
+    };
+    this.h = function( value ) {
+        var e = 0;
+        if( typeof value === 'number' ) {
+            $this.___.div.style.height = value+'px';
+        } else if( typeof value === 'string' ) {            
+            if( value.indexOf('px') != -1 ) {
+                e = parseFloat( value );if( isNaN( e ) ) {e = 0};
+                $this.___.div.style.height = e+'px';
+            } else if( value.indexOf('%') != -1 ) {
+                e = parseFloat( value );if( isNaN( e ) ) {e = 0};
+                $this.___.div.style.height = e+'%';
+            } else {
+                e = parseFloat( value );if( isNaN( e ) ) {e = 0};
+                $this.___.div.style.height = e+'px';                
+            }
+        }        
+        e = null;
+        return $this.___.div.style.height;
+    };
+    this.visible = function( value ) {};
+    this.alpha = function( value ) {};
+    this.enabled = function( value ) {};
+    this.rotation = function( value ) {};
+    this.scaleX = function( value ) {};
+    this.scaleY = function( value ) {};    
+    this.skewX = function( value ) {};
+    this.skewY = function( value ) {};
+    
+    this.css = {};
+    
+    var bgc = 'background-color';    
+    
+    this['-'+bgc] = this[bgc] = this.css[bgc] = function() {
+        //trace( 'background-color - hello you!' );
+        
+        var f = function() {
+            var i = arguments.length;
+            if( i > 0 ) {
+                var a = arguments;
+                var n = 0;
+                
+                if( i === 1 ) {
+                    var e = a[0];
+                    if( typeof e === 'number' ) {
+                        trace( 'number' , e );
+                        n = ( e >= 0 && e <= 0xFFFFFF ) ? e : ( e < 0 ) ? 0 : ( e > 0xFFFFFF ) ? 0xFFFFFF : e;
+                        trace( n , n.toString( 16 ).toUpperCase() );
+                    } else if( typeof e === 'string' ) {
+                        if( e.indexOf('0x') !== -1 ) {
+                            trace( 'hex string' , e );
+                            e = parseInt( e.split(' ').join('') , 16 );
+                            n = ( e >= 0 && e <= 0xFFFFFF ) ? e : ( e < 0 ) ? 0 : ( e > 0xFFFFFF ) ? 0xFFFFFF : e;
+                            trace( n , n.toString( 16 ).toUpperCase() );
+                        } else if( e.indexOf('#') !== -1 ) {
+                            trace( 'css hex string' , e );
+                            e = parseInt( e.split(' ').join('').split('#').join('') , 16 );
+                            n = ( e >= 0 && e <= 0xFFFFFF ) ? e : ( e < 0 ) ? 0 : ( e > 0xFFFFFF ) ? 0xFFFFFF : e;
+                            trace( n , n.toString( 16 ).toUpperCase() );
+                        } else if( e.indexOf('rgba') !== -1 ) {
+                            trace( 'css rgba string' , e );                            
+                        } else if( e.indexOf('rgb') !== -1 ) {
+                            trace( 'css rgb string' , e );
+                        } else if( e.indexOf('hsla') !== -1 ) {
+                            trace( 'css hsla string' , e );
+                        } else if( e.indexOf('hsl') !== -1 ) {
+                            trace( 'css hsl string' , e );
+                        } else {                            
+                            trace( 'unknown type');
+                            trace( e );
+                            e = e.match( /[0-9a-f]{1,6}/ig );
+                            e = ( e !== null ) ? e = parseInt( e.join('') , 16 ) : 0;
+                            
+                            //e = parseInt( e.match( /[0-9a-f]{1,8}/ig ).join('') , 16 );
+                            //var n = parseInt( e.match( /[0-9a-f]{1,8}/ig ).join('') , 16 )
+                            n = ( e >= 0 && e <= 0xFFFFFF ) ? e : ( e < 0 ) ? 0 : ( e > 0xFFFFFF ) ? 0xFFFFFF : e;
+                            trace( n );
+                            //trace( parseInt( e.match( /[0-9a-f]{1,8}/ig ).join('') , 16 ) );
+                        }
+                    } else if( typeof e === 'object' ) {
+                        
+                    } else {
+                        n = 0;
+                    }
+                }
+                
+                return;
+                
+                //trace( arguments , arguments.length );
+                                
+                if( i === 1 ) {                    
+                    if( typeof a[0] === 'number' ) {
+                        trace( 0x01FFFFFF > 0xFFFFFF );
+                        
+                        var n = a[0];
+                        if( n < 0 ) {n = 0;}
+                        if( n > 0xFFFFFFFF ) {n = 0xFFFFFFFF;}
+                        trace( 'number' );
+                        trace( n );
+                    } else if( typeof a[0] === 'string' ) {
+                        trace( 'string' );
+                        trace( a[0] );
+                    } else if( typeof a[0] === 'object' ) {
+                        trace( 'object' );
+                        trace( a[0].argb );
+                        trace( a[0].rgb );
+                        trace( a[0].a , a[0].r , a[0].g , a[0].b );
+                        trace( a[0].a , a[0].h , a[0].s , a[0].l );
+                    } else if( a[0] instanceof jColor ) {
+                        
+                    } else {
+                        
+                    }
+                }
+                                
+            } else {
+                trace('no argument');
+            }            
+        };
+        
+        //f( 0xFFFFFFFF);
+        //f( '0xFF0000' );
+        //f( {} );
+        //f( { a : 7 } );
+        //f( { rgb : 12 } );
+        
+        var ts = function( value ) {
+            trace( arguments.length > 0 );
+            trace( arguments[0] != null );
+            trace( typeof arguments[0] );
+        };
+        
+        ts( NaN );
+        
+        return;
+        
+        //f( '0x 0 0 F F 0 0 FF' );
+        //f( ' # 00 FF 00 ' );
+        f( 'rgba(100% 12 255 0.5)' );
+        /*        
+        f( 'rgba 00FF00' );
+        f( 'rgb 00FF00' );
+        f( 'hsla 00FF00' );
+        f( 'hsl 00FF00' );
+        f( '0FF' );
+        */
+        
+        return;
+        
+        var s = '# FCAAAA';
+        //var s = '';
+        //var regex = /#|\s/ig;        
+        var regex = /[0-9a-f]{1,8}/ig;
+            trace( s );
+            //trace( s.replace( regex , '' ) );
+            //trace( s.match( regex ) );
+        var re = s.match( regex )
+        if( re !== null ) {
+            //trace( re.join('') );
+            //trace( re.join('').substr(0,8) );
+            var str = re.join('').substr(0,6);
+            trace( str , str.length );
+            var L = str.length;
+            switch (L) {
+                case 1:
+                    trace('1 shorthand' , '#'+str+str+str+str+str+str );
+                    break;
+                case 2:
+                    trace('2 shorthand' , '#'+str[0]+str[0]+str[0]+str[1]+str[1]+str[1] );
+                    break;
+                case 3:
+                    trace('3 shorthand' , '#'+str[0]+str[0]+str[1]+str[1]+str[2]+str[2] );
+                    break;
+                case 4:
+                    trace( '4' , '#00'+str );
+                    break;
+                case 5:
+                    trace( '5' , '#0'+str );
+                    break;
+                case 6:
+                    trace( '6' , '#'+str );                
+                    break;
+                default:
+                    break;
+            }
+
+        } else {
+            trace('re is null');
+        }
+        
+       
+        /*
+        { rgb:0xFF0000 }
+        { argb:0xFF0000 }
+        { r:100 , '100%' }
+        { r:100 , '100%' }
+        
+        'argb[0xFF0000]'
+        
+        var c = 0xFF80FF;
+        
+        trace( 'a' , c >> 24 & 0xff );
+        trace( 'r' , c << 8 >> 24 & 0xff );
+        trace( 'g' , c << 16 >> 24 & 0xff );
+        trace( 'b' , c << 24 >> 24 & 0xff );
+        
+        trace( '.....' );
+        
+        trace( 'a' , c >> 24 & 0xff );
+        trace( 'r' , c >> 16 & 0xff );
+        trace( 'g' , c >> 8 & 0xff );
+        trace( 'b' , c & 0xff );
+        */
+        /*
+        
+        add , sub , mul div colors
+        
+        '#FFF';
+        255,255,255,255;
+        rgba - '255','100%','255','100%';
+        hsla - '120%';
+        */
+    }
+        
+    this.addChild = function(){};
+    this.removeChild = function(){};
+    this.hasChild = function(){};
+    
+    this.addListener = function(){};
+    this.removeListener = function(){};
+    this.hasListener = function(){};
+    
+    // Init block
+    if( jDiv.prototype.init === false ) {
+        jDiv.prototype.rawElement = window.document.createElement('div');
+        jDiv.prototype.init = true;
+    }
+
+    this.___.div = jDiv.prototype.rawElement.cloneNode(false);
+    this.___.div.style.position = 'absolute';
+    this.___.div.style.left = '0px';
+    this.___.div.style.top = '0px';
+    this.___.div.style.width = '10px';
+    this.___.div.style.height = '10px';
+    this.___.div.style.backgroundColor = '#FF0000';
+    
+    div = this.___.div;
+    trace( div , $this );
+};
+
+function jCSS() {};
+jCSS.addStyle = function(){};
+jCSS.addClass = function(){};
+
+/*
+ * Modes:
+ *  - default ( mixed )
+ *  - global ( all items + children )
+ *  - family ( item + children )
+ *  - item ( per item )
+ *  - mixed ( per method )
+ */
+var jColorMode = new (function(){
+    var m = 'jColorMode-';
+    
+    this.DEFAULT = m+'DEFAULT';
+        this.GLOBAL = m+'GLOBAL';
+        this.FAMILY = m+'FAMILY';
+        this.ITEM = m+'ITEM';
+        this.MIXED = m+'MIXED';
+    
+    var _mode = this.DEFAULT;
+    
+    this.mode = function( value ) {
+        
+        return _mode;
+    }
+    
+        this.AUTO = m+'AUTO';
+        this.HEX = m+'HEX'; //( 0x00FF00 ) ; ( '0xFF0000' )
+        this.HEXA = m+'HEXA'; //( 0xFF00FF00 , false ) ; ( 0xFF00FF00 , 0-1 / '0%-100%' )
+        this.CSS_HEX = m+'CSS_HEX'; // ( '#00FF00' )
+        this.CSS_HEXA = m+'CSS_HEXA'; // ( '#FF00FF00' , false ) ; ( '#FF00FF00' , 0-1 / '0%-100%' )
+        this.CSS_RGBA = m+'CSS_RGBA'; // ( 'rgba(0-100%,0-255,0-100%,0-1)' ; ... , 0-1 / '0%-100%' )
+            // ( 'rgba' , 0-255 , '0%-100%' , 0-255 , 0-1 )
+        this.CSS_RGB = m+'CSS_RGB';
+        this.CSS_HSLA = m+'CSS_HSLA';
+        this.CSS_HSL = m+'CSS_HSL';        
+})();
+
+function jColor(){};
+jColor.blend = function(){};
+    jColor.add = function(){};
+        jColor['+'] = function(){};
+    jColor.sub = function(){};
+        jColor['-'] = function(){};
+    jColor.multiple = function(){};
+        jColor['*'] = jColor['x'] = function(){};
+    jColor.divide = function(){};
+        jColor['/'] = jColor['÷'] = function(){};
+
+jColor.HEXtoRGB = function(){};
+jColor.HEXtoARGB = function(){};
+jColor.HEXtoHSL = function(){};
+jColor.HEXtoAHSL = function(){};
+
+function jTween() {};
+
+window.onload = jt.init();

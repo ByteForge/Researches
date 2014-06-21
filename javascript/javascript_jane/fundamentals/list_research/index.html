@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>page title</title>
+	
+	<script type="text/javascript">
+		//"use strict";
+	
+		function trace() {
+			var r = '';
+			var a = arguments;
+			var L = a.length;
+			var i = 0;
+			for( i = 0 ; i < L ; i++ ) {
+				r += a[i];
+				if( i+1 < L ) {r += ' , ';}
+			}    
+			//alert( r );
+			if( console.debug ) { // FF
+				console.debug(r);
+			} else if( console.log ) { // IE9
+				console.log(r);
+			}
+			//document.body.innerHTML += r + '<br>';
+		};
+		
+		var J = (function(){
+			var _uID = 0;
+			
+			var f;
+			f = function(){
+			
+			};
+				f.uniqueID = function(){
+					return _uID++;
+				};
+			return f;
+		})();
+		
+		var jBody = (function(){
+			var f;
+			var m;
+			var chain = false;
+			var body;
+			var children = [];
+			
+			f = function(){
+				//trace("jBody()");
+				if( arguments.length === 0 ){
+					chain = true;					
+					return m;
+				}
+			};
+				m = {
+					add : function( child ){					
+						body = window.document.body;
+						
+						//trace( child._.element );
+						
+						body.appendChild( child._.element );
+						
+						if( chain ){
+							//trace("on chain");
+							return m;
+						} else {
+							//trace("offchain");
+						}
+						//trace("add",arguments.length);
+					},
+					remove : function( child ){
+						trace("remove",arguments.length);
+					}
+				};
+				
+			for( var e in m ){
+				//trace( e );
+				//trace( m[e] );
+				
+				f[e] = function(){
+					//trace( this );
+					//trace( arguments.callee );
+					//trace( arguments.callee._ );
+					chain = false;
+					m[arguments.callee._].apply( this , arguments );
+				};
+					f[e]._ = e;
+				
+				//trace( f[ m[e] ] );
+			}
+			
+			//f.add = function(){};
+			
+			return f;
+		})();
+		
+		function jList( listType ){
+			trace( jList.ULinit );
+			if( !jList.ULinit ) {
+				//jList. = 
+				jList.ULinit = true;
+			}
+		
+			if ( this instanceof jList && !this.__previouslyConstructed ) {
+				this.__previouslyConstructed = true;
+				trace("called as a constructor - new ...()");
+				
+			} else {
+				trace("called as a function - ...()");
+			}
+		
+			return;
+		
+			if( listType === "ordered" ){
+				listType = "ol";
+			} else if( listType === "unordered" ) {
+				listType = "ul";
+			} else {
+				listType = "ul";
+			}
+		
+			var f = function(){
+			
+			};
+				f._ = {
+					element : null
+				};
+				
+				f.type = function( _type ){
+					trace( "type: " , _type );
+				};
+				
+			f._.element = document.createElement(listType);
+			f._.element.id = "abcd1234";
+				
+			//trace( listType , f._.element );
+			
+			f._.element.innerHTML = "<li>item 1</li>";
+			
+			//document.body.appendChild( f._.element );
+				
+			return f;
+		};
+		
+		var intervalID = 0;
+		function main(){
+			if( document.body ){
+				window.clearInterval( intervalID );
+				
+				jList();
+				var list = new jList( "ordered" );
+				//list.type();
+				
+				//jBody();
+				//trace( jBody );
+				//trace( jBody.add );
+				
+				//jBody.add( list );
+				
+				
+				
+			}
+		};
+		intervalID = window.setInterval( main , 100 );
+		
+		
+	</script>
+</head>
+	<body>
+	</body>
+</html>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<noises>
+	<noise file="noise_00.mp3" id="0" />
+	<noise file="noise_01.mp3" id="1" />
+	<noise file="noise_02.mp3" id="2" />
+	<noise file="noise_03.mp3" id="3" />
+	<noise file="noise_04.mp3" id="4" />
+</noises>

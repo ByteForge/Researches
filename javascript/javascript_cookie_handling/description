@@ -1,0 +1,8 @@
+
+	IMPLEMENT:
+		- chaining
+		- multiple references to one function
+		- human readable expirations;
+			- "+1 day" / "1 day"
+			- "1 hour" / "1 h" / "1::" / "1:0:0" / "1:00:00"
+			- "session" / "0" / null , undefined

@@ -1,0 +1,95 @@
+
+	AieMouse:
+	
+		public static properties:
+		
+			- isInitialized():Boolean - read only
+	
+		public static methods:
+	
+			- init( params:Object ):Void {}
+			- uninit():Void {}
+			- dispose():Void {}		
+		
+			- simulation related:
+			
+				- timeScale
+		
+				- addSimulation()
+				- hasSimulation()
+				- removeSimulation()				
+				
+				- removeSimulations():Boolean
+				- getSimulations():Array
+				- numSimulations():Number
+				
+				- getSimulation( 'name' )
+				- setSimulation( 'name' )
+		
+				- startSimulation()
+				- stopSimulation()
+				- pauseSimulation()
+				- resumeSimulation()
+				- restartSimulation()
+				- resetSimulation()
+				- reverseSimulation()
+				- playSimulation()
+
+				- Events:
+					- onSTART
+					- onPROGRESS
+					- onCOMPLETE
+					- onCANCEL / onINTERRUPT
+					- onERROR / onFAIL
+
+				- simulateUp()
+				- simulateDown()
+				- simulateClick()
+				- simulateClickAndDrag()
+				- simulateMove()
+				- simulateWheel()
+				- simulate( AieMouseActivity )
+				
+		AieMouseSimulation
+		
+			new AieMouseSimulation()
+			
+				- timeScale:Number
+				- sleepAfterActivity:int
+				
+				- appendActivity( activity:AieMouseActivity , duration:int , at:Object ( time or percent ) , sleepAfter:int )
+				- appendSleep( milliseconds:int )
+			
+		AieMouseDown / Up / Click
+			- new AieMouseDown / Up / Click()
+				- x / y .../... target:DisplayObject / AieMouse
+				- button
+				- isCtrl/Alt/Shift/Meta???Down
+				
+		AieMouseMove		
+			- new AieMouseMove()			
+				- x / y .../... target:DisplayObject / AieMouse
+				- tween( destination:Object , duration:int , ease , path , stretchPath )
+				
+		AieMouseWheel
+			- new AieMouseWheel
+				- wheel/amount/delta:int ( - / 0 / + )
+			
+	AieHitArea
+
+		lastObject
+		currentObject
+		
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			

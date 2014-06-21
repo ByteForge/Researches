@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>270</x>
+      <y>10</y>
+      <w>250</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>jCookie
+--
+name()
+value()
+--
+addSubCookie( name , value )
+getSubCookie( name , value )
+setSubCookie( name , value )
+hasSubCookie( name , value )
+removeSubCookie( name , value )
+--
+addSubCookies()
+getSubCookies()
+setSubCookies()
+hasSubCookies()
+removeSubCookies()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>10</x>
+      <y>10</y>
+      <w>250</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>jCookies
+--
+addCookie( name , value )
+getCookie( name , value )
+setCookie( name , value )
+hasCookie( name , value )
+removeCookie( name , value )
+--
+addCookies()
+getCookies()
+setCookies()
+hasCookies()
+numCookies()
+removeCookies()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>530</x>
+      <y>10</y>
+      <w>250</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>jSubCookie
+--
+name()
+value()</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

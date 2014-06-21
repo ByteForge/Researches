@@ -1,0 +1,92 @@
+
+IMPLEMENT:
+	- chaining
+	- multiple references to one function
+	- human readable dates;
+		- "+1 day" / "1 day" / "1 d"
+		- "1 hour" / "1 h" / "1::" / "1:0:0" / "1:00:00"
+		- "session" / "0" / null , undefined
+		
+	- support of languages
+	- support of holidays
+	- get random date / get random date ranges
+	- date actions:
+		- addition
+		- subtraction
+		- multiplication
+		- division
+		- comparison
+	
+	- isLeapYear / leapYear
+	- week of the year
+	- day of the year
+	- blocks:
+		" now - 2011-12-01 "
+		" 1 year - 0.75 year "
+		" 123 minutes + 2 hours "
+		" [ 123 minutes ] + [ 2 hours ] "
+	
+	- xDateTime - Date and Time specific functions
+	- xDate - only Date specific functions
+	- xTime - only Time specific functions
+		- new xTime():
+			- year - " 1 year "
+			- month
+			- week
+			- day
+			- hour
+			- minute
+			- second
+			- millisecond
+		- from12 / to12 - from24 / to24
+	
+		RegEx parsing pattenrs:
+			- universal big-endian format clock time --> (\d{1,2}).*?(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec).*?(\d{4}).*?(\d{1,2}).*?(\d{1,2}).*?(\d{1,2})
+			- ISO 8601 --> \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}
+			
+			- little endian:
+				(\d{1,2}).*?[\s\.\/\-]{0,}(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|\d{1,2}|[ivx]{1,3}).*?(\d{2,4})
+					
+					8 November 2003
+					8. November 2003
+					8/11/2003	 8.11.2003
+					08-Nov-2003
+					08Nov03
+					8-11-2003
+					[The] 8th [of] November 2003
+					Sunday, 8 November 2003
+					8/xi/03, 8.xi.03, 8-xi.03, 8.XI.2003
+					8 November AD 2003
+					9 November 2003, 18h 14m 12s
+				
+			- middle endian:
+				(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|\d{1,2}|[ivx]{1,3}).*?[\s\.\/\-]{0,}(\d{1,2}).*?(\d{2,4})
+				
+					Sunday, November 9, 2003
+					November 9, 2003
+					Nov. 9, 2003 or 11/9/2003
+					11-9-2003, 11.9.2003, 11.09.03, or 11/09/03
+
+			- big endian:
+				(\d{2,4}).*?[\s\.\/\-]{0,}(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|\d{1,2}|[ivx]{1,3}).*?(\d{1,2})
+			
+					2003-11-09
+					2003 November 9
+					2003Nov9
+					2003Nov09
+					2003-Nov-9
+					2003-Nov-09
+					2003-Nov-9, Sunday
+					2003. november 9.
+					2003. nov. 9. , 2003. 11. 9. , 2003. XI. 9.
+					2003.11.9
+					2003/11/9/18:14:12
+					2003-11-09T18:14:12
+				
+	
+	- to Roman date / from Roman date
+	
+	- get/set:
+		- UTC   ->   .UTC()
+		- minute/minutes( 1 / -1 )
+		- century

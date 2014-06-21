@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>page title</title>
+	
+	<script type="text/javascript">
+		function trace() {
+			var r = '';
+			var a = arguments;
+			var L = a.length;
+			var i = 0;
+			for( i = 0 ; i < L ; i++ ) {
+				r += a[i];
+				if( i+1 < L ) {r += ' , ';}
+			}    
+			//alert( r );
+			if( console.debug ) { // FF
+				console.debug(r);
+			} else if( console.log ) { // IE9
+				console.log(r);
+			}
+			//document.body.innerHTML += r + '<br>';
+		};
+		
+		function onLOADED( fn ){
+			window._intervalID = 0;
+			window._intervalFunction = function(){
+				if( document.body ){
+					window.clearInterval( window._intervalID );
+					fn();
+				}
+			};
+			window._intervalID = window.setInterval( window._intervalFunction , 100 );
+		};
+		
+		var jMsg = (function(){
+			var STR = "string";
+			var NUM = "number";
+			var FUN = "function";
+		
+			var F;			
+			F = function(){
+				if ( this instanceof jMsg && !this.__previouslyConstructed ) {
+					this.__previouslyConstructed = true;
+					trace("called as a constructor - new ...()");
+					
+					var e;
+					
+					for( var i = 0 , arg = arguments , L = arg.length ; i < L ; i++ ){
+						
+						e = arg[i];
+						
+						trace( e );
+						
+						
+						if( typeof e === "object" ) {
+							if( e.alert ){
+								//trace( e.alert );
+								//alert( e.alert );
+							} else if( e.confirm ) {
+								//confirm( e.confirm );
+							}
+						}
+					}
+					
+					var _;
+					var f;					
+					f = function(){
+						trace( alert("...") );
+					};
+						f._ = {};
+						_ = f._;
+						
+						_.label = "label";
+						
+						f.label = function label(){
+							
+						};
+						
+					return f;
+				} else {
+					trace("called as a function - ...()");
+					
+					var A = arguments[0];
+					
+					var j; // j--
+					var k; // k--
+					
+					var C = [ "Q" , "q" , "Question" , "question" , "A" , "a" , "Ask" , "ask" , "C" , "c" , "Confirm" , "confirm" ];
+					var P = [ "I" , "i" , "Input" , "input" , "P" , "p" , "Prompt" , "prompt" ];
+					var V = [ "V" , "v" , "Value" , "value" ];
+					var L = [ "L" , "l" , "Label" , "label" ];
+					var O = [ "O" , "o" , "OK" , "Ok" , "ok" , "onOK" , "onOk" ];
+					var X = [ "X" , "x" , "C" , "c" , "Cancel" , "cancel" , "onCANCEL" , "onCancel" ];
+					
+					for( j = C.length ; j-- ;){
+						if( A[C[j]] ){
+							//trace( C[j] );
+							if( confirm( A[C[j]] ) === true ) {
+								for( k = O.length ; k-- ;){
+									if( typeof A[O[k]] === FUN ){ A[O[k]](); break; }
+								}
+							} else {
+								for( k = X.length ; k-- ;){
+									if( typeof A[X[k]] === FUN ){ A[X[k]](); break; }
+								}
+							}
+						}
+					}
+					for( j = P.length ; j-- ;){
+						if( A[P[j]] ){
+							//trace( P[j] );
+							
+							var v = ""; // Value
+							var e = A[P[j]]; // Element
+							var t; // typeof container					
+							
+							for( k = V.length ; k-- ;){
+								t = typeof A[V[k]];
+								if( t === STR || t === NUM ){
+									v = ""+A[V[k]];
+									break;
+								}
+							}
+							
+							t = typeof e;
+							if( t === STR || t === NUM ){
+								e = ""+e;								
+							} else if( e instanceof Array || e.length > 0 ) {
+								t = typeof e[1];
+								if( t === STR || t === NUM ) {
+									v = ""+e[1];
+								}
+								t = typeof e[0];
+								if( t === STR || t === NUM ) {
+									e = ""+e[0];									
+								}								
+							}							
+							
+							var r = prompt( e , v );
+							
+							if( r !== null ) {
+								for( k = O.length ; k-- ;){
+									if( typeof A[O[k]] === FUN ){ A[O[k]](r); break; }
+								}
+							} else {
+								for( k = X.length ; k-- ;){
+									if( typeof A[X[k]] === FUN ){ A[X[k]](); break; }
+								}								
+							}
+						}
+					}
+					
+					return;
+					
+					//for( var i = 0 , arg = arguments , L = arg.length ; i < L ; i++ ){}
+				}
+			};
+				F.add = function add(){}; // add a Message
+				F.remove = function remove(){}; // remove a Message
+				F.has = function has(){}; // has a Message
+				F.get = function get(){}; // get a/all Message(s)
+			
+			return F;
+		})();
+		
+		onLOADED(function(){
+			
+			trace("loaded");
+			
+			/*
+			jMsg({
+				confirm : "..." ,
+				OK : function(){ trace("...OK"); } , 
+				Cancel : function(){ trace("...Cancel"); } ,
+				label : ""
+			});
+			*/
+			
+			jMsg({
+				prompt : [ "Question" ] , 
+				value : 12345 ,
+				OK : function( v ){ trace(".OK",v); } , 
+				Cancel : function(){ trace(".Cancel"); } , 
+				label : ""
+			});
+		});
+		
+	</script>
+</head>
+	<body>
+	</body>
+</html>

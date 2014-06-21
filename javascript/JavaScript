@@ -1,0 +1,59 @@
+
+	Self-initializing Class:
+		
+		var ... = (function(){
+			"use strict"
+		
+			var F;
+			F = function(){
+				if ( this instanceof ... && !this.__previouslyConstructed ) {
+					this.__previouslyConstructed = true;
+					trace("called as a constructor - new ...()");
+					
+					var f;
+					f = function(){};
+					return f;
+				} else {
+					trace("called as a function - ...()");
+				}
+			};
+			return F;
+		})();
+		
+	Constructor - Function ( new Obj(...) / Obj(...) ):
+	
+		if ( this instanceof ... && !this.__previouslyConstructed ) {
+			this.__previouslyConstructed = true;
+			trace("called as a constructor - new ...()");
+		} else {
+			trace("called as a function - ...()");
+		}
+		
+	Random Range Number:
+	
+		normal: ( parseInt ( Math.random() * ( maxNum - minNum + 1 ) ) + minNum )
+		faster: (  )
+		
+	Short "parsing" within Objects:
+	
+		if( typeof ( obj = OBJ.value ) === "number" ) {
+		
+		}
+		
+	Performance Tips:
+		- avoid function calls, do inline instead if possible
+		- use literals instead of classic declaration
+		- faster toNumber conversions:
+			- parseFloat( 9.5 ) -> 1 * "9.5"
+			- parseInt( 9.5 ) -> ~~(1 * "9.5")
+		- cache globals, often used functions
+		- organize conditions from the most used case to the rarest:
+			if( a && b || c )...
+		
+		
+		
+		
+		
+		
+		
+	

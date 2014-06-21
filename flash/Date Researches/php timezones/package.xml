@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.9.4">
+ <name>timezonedb</name>
+ <summary>Timezone Database to be used with PHP&apos;s date and time functions</summary>
+ <description>This extension is a drop-in replacement for the builtin timezone database that
+comes with PHP. You should only install this extension in case you need to get
+a later version of the timezone database than the one that ships with PHP.
+
+The data that this extension uses comes from the &quot;Olson&quot; database, which is
+located at ftp://elsie.nci.nih.gov/pub/.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>derick</user>
+   <name>Derick Rethans</name>
+   <email>derick@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>2012.5</version>
+  <date>2012-08-06</date>
+  <license>PHP</license>
+  <state>stable</state>
+  <notes>Updated to version 2012.5 (2012e)
+  </notes>
+  <filelist>
+   <file role="src" name="config.m4"/>
+   <file role="src" name="config.w32"/>
+   <file role="src" name="timezonedb.c"/>
+   <file role="src" name="timezonedb.h"/>
+   <file role="src" name="php_timezonedb.h"/>
+   <file role="doc" name="CREDITS"/>
+  </filelist>
+ </release>
+</package>

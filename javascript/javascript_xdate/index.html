@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>page title</title>
+	
+	<script type="text/javascript">
+		function trace() {
+			var r = '';
+			var a = arguments;
+			var L = a.length;
+			var i = 0;
+			for( i = 0 ; i < L ; i++ ) {
+				r += a[i];
+				if( i+1 < L ) {r += ' , ';}
+			}    
+			//alert( r );
+			if( console.debug ) { // FF
+				console.debug(r);
+			} else if( console.log ) { // IE9
+				console.log(r);
+			}
+			//document.body.innerHTML += r + '<br>';
+		};
+		
+		function onLOADED( fn ){
+			window._intervalID = 0;
+			window._intervalFunction = function(){
+				if( document.body ){
+					window.clearInterval( window._intervalID );
+					fn();
+				}
+			};
+			window._intervalID = window.setInterval( window._intervalFunction , 100 );
+		};
+		
+		function callAfter( fn , delay ){
+			window._timeoutID = 0;
+			window._timeoutFunction = function(){
+				window.clearTimeout( window._timeoutID );
+				fn();
+			};
+			window._timeoutID = window.setTimeout( window._timeoutFunction , delay );
+		}
+		
+		var jDate = (function(){
+			var F;
+			F = function(){				
+				for( var i = 0 , L = arguments.length ; i < L ; i++ ){
+					//trace( arguments[i] );
+				}
+				
+				if ( this instanceof jDate && !this.__previouslyConstructed ) {
+					this.__previouslyConstructed = true;
+					trace("called as a constructor - new jDate()");
+					
+					var f;
+					var m;
+					
+					f = function(){
+						
+						f._.chain = true;
+						return m;
+					};
+						f._ = {};
+						f.toDate = function(){
+							return new Date( f._.date );
+						};
+						
+						f.test = function(){
+							f._.chain = false;
+							m.test();
+						};
+						m = {
+							test : function(){
+								if( f._.chain ){
+									trace("chain is TRUE");
+									return m;
+								} else {
+									trace("chain is FALSE");
+								}
+							}
+						};
+
+					if( arguments.length === 0 ){
+						
+						//trace( new Date().getTime() );
+						f._.date = new Date().getTime();
+					}
+					
+					return f;
+				} else {
+					trace("called as function - jDate()");
+				}
+				
+			};
+				F.test = function(){
+					//trace("test()");
+				};
+			return F;
+		})();
+		
+		onLOADED(function(){
+			
+			trace("loaded");
+			
+			//trace( typeof jDate );
+			//trace( jDate );
+			
+			//jDate.test();
+			
+			var A = new jDate();
+			trace( A.toDate() );
+			
+			callAfter(function(){
+				
+			var B = new jDate();
+			trace( B.toDate() );
+			
+			trace( "-----" );
+			trace( A._.date );
+			trace( B._.date );
+				
+			},1000);
+			
+			/*
+			A()
+				.test()
+				.test()
+				.test()
+			;
+			A.test();
+			*/
+			
+		});
+		
+	</script>
+</head>
+	<body>
+	</body>
+</html>

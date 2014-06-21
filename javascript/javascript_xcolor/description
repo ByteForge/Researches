@@ -1,0 +1,66 @@
+
+IMPLEMENT:
+	- chaining
+	- multiple references to one function
+	- human readable colors
+	- color palettes
+
+	- color standards:
+		- RGB
+		- ARGB
+		- CSS2 / CSS3 ( hex triplet )
+		- HSL / HSV / HSB / HCL
+		- CMYK
+		- Lab ??? ( photoshop )
+	
+	- support of languages
+	- get random color / get random color ranges
+	- create gradients
+	- wikipedia list of colors ( http://en.wikipedia.org/wiki/List_of_colors / http://en.wikipedia.org/wiki/List_of_colors_%28compact%29 )
+	- colorblind checking
+	
+	adobe kuler
+	http://colorschemedesigner.com/
+		- triads and more
+		- colorblind functions
+	
+	- isWebSafe / webSafe / websafe
+	- convert to nearest websafe color
+	- convert to 16 / 8 bit 
+	
+	
+	- color actions:		
+		- comparison:
+			- brighter / darker
+			- similarity
+		- blending:
+			- blend( color , percent )
+			- addition
+			- subtraction
+			- multiplication
+			- division
+		- grayscaling
+		- sepia / duotone toning ???
+		
+	- declaration:
+		- new Color():
+			"rgb" , 255 , 255 , 255
+			"hsl" , 255 , 255 , 255
+			0xFFFFFF ( default 1 number )
+			"#FF0000"
+			new RGB()
+			RGB( 255 , 255 , 255 ) ( numbers 0-255 and percents 0-100% or 0-1 )
+			"black"
+			255 , 255 , 255 ( default 3 numbers )
+			
+		- blocks:
+			" now - 2011-12-01 "
+			" 1 year - 0.75 year "
+			" 123 minutes + 2 hours "
+			" [ 123 minutes ] + [ 2 hours ] "
+	
+	- parsing patterns:
+	
+	- get/set:
+		- complementary of a color
+		- darker / brighter current color

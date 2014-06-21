@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>10</x>
+      <y>10</y>
+      <w>100</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>*jCookie*
+fg=black
+bg=light_gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>180</x>
+      <y>60</y>
+      <w>130</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>*name( name )*
+--
+return
+   - name [ String ]
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>180</x>
+      <y>280</y>
+      <w>230</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>*value ( value , keepType )*
+--
+return
+   - value [ String ]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Note</type>
+    <coordinates>
+      <x>180</x>
+      <y>10</y>
+      <w>110</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*FUNCTIONS*
+bg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Note</type>
+    <coordinates>
+      <x>380</x>
+      <y>10</y>
+      <w>160</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*ARGUMENT TYPES*
+bg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>380</x>
+      <y>60</y>
+      <w>150</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>*String*
+--
+   "cookie 1"
+   "name2"</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>380</x>
+      <y>160</y>
+      <w>150</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>*Number*
+--
+   001
+   235454
+   453</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Note</type>
+    <coordinates>
+      <x>430</x>
+      <y>280</y>
+      <w>80</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*VALUE*
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>430</x>
+      <y>330</y>
+      <w>150</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>*String*
+--
+   "value 1"
+   "v2"</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

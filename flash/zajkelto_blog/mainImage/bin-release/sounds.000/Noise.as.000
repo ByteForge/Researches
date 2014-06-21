@@ -1,0 +1,35 @@
+package sounds {
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
+	
+	public class Noise {
+		
+			[Embed (source="noise_00.mp3")]
+			private static var eNoise00:Class;
+		private static var Noise0:Sound = new eNoise00() as Sound;
+		
+			[Embed (source="noise_01.mp3")]
+			private static var eNoise01:Class;
+		private static var Noise1:Sound = new eNoise01() as Sound;
+		
+			[Embed (source="noise_02.mp3")]
+			private static var eNoise02:Class;
+		private static var Noise2:Sound = new eNoise02() as Sound;
+		
+			[Embed (source="noise_03.mp3")]
+			private static var eNoise03:Class;
+		private static var Noise3:Sound = new eNoise03() as Sound;
+		
+			[Embed (source="noise_04.mp3")]
+			private static var eNoise04:Class;
+		private static var Noise4:Sound = new eNoise04() as Sound;
+		
+		public static function play( id:uint ):void {		
+			var volume:SoundTransform = new SoundTransform( 75 );
+			var channel:SoundChannel = Noise['Noise'+String(id)].play();
+			channel.soundTransform = volume;
+		}
+		
+	}
+}

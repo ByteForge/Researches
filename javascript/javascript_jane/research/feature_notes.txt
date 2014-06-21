@@ -1,0 +1,5 @@
+
+	CSS:
+		- no inline styles in internal engine ( create styles in the document.styles... )
+		- inline import ( <div style="@import..."></div> )
+		

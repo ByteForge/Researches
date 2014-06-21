@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>page title</title>
+	
+	<script type="text/javascript">
+		function trace() {
+			var r = '';
+			var a = arguments;
+			var L = a.length;
+			var i = 0;
+			for( i = 0 ; i < L ; i++ ) {
+				r += a[i];
+				if( i+1 < L ) {r += ' , ';}
+			}    
+			//alert( r );
+			if( console.debug ) { // FF
+				console.debug(r);
+			} else if( console.log ) { // IE9
+				console.log(r);
+			}
+			//document.body.innerHTML += r + '<br>';
+		};
+		
+		function onLOADED( fn ){
+			window._intervalID = 0;
+			window._intervalFunction = function(){
+				if( document.body ){
+					window.clearInterval( window._intervalID );
+					fn();
+				}
+			};
+			window._intervalID = window.setInterval( window._intervalFunction , 100 );
+		};
+		
+		var jArray = (function(){
+			var F;
+			var RA = Math.random;
+			var RO = Math.round;
+			var PI = parseInt;
+			F = function(){
+				if ( this instanceof jArray && !this.__previouslyConstructed ) {
+					this.__previouslyConstructed = true;
+					trace("called as a constructor - new ...()");
+					
+					var f;
+					f = function(){};
+					return f;
+				} else {
+					trace("called as a function - ...()");
+					
+					//trace( arguments.length );
+					
+					var arr = arguments[0];
+					var ARG = [].slice.call( arguments , 0 );
+					
+					//trace( ARG );
+					
+					var f;
+					f = function(){};
+						f.clone = function(){							
+							return [].concat( arr );							
+						};
+						
+						f.merge = function(){
+							//var arg = [].slice.call( ARG , 0 );
+							var arg = [].slice.call( arguments , 0 );
+							
+							//return [].concat( arg );
+							return [].concat( ARG , arg );
+						};
+						
+						f.randomize = function(){
+						
+							var n = [];
+						
+							for( var i = 0 , L = arr.length-1 ; i <= L ; i++ ){
+								
+								var j = n.length;
+								
+								var num = PI( RA() * ( L + 1 ) );
+								
+								while(j--){
+								
+									if( n[j] === num ){
+										num = PI( RA() * ( L + 1 ) );
+										j = n.length;
+									}
+								}
+								
+								n[i] = num;
+								
+							}
+						
+							//trace( n );
+						
+							var r = [];
+						
+							for( var i = 0 , L = n.length ; i < L ; i++ ) {
+								r[i] = arr[ n[i] ];
+							}
+							
+							return r;
+						};
+						
+						f.random = function( min , max ){
+						
+							var L = arr.length;
+							
+							if( L === 0 ){
+								return null;
+							} else if( L > 1 ) {
+								
+								if( typeof min === "number" ){
+									min = min >= 0 ? RO( min ) : 0 ;
+								} else {
+									min = 0;
+								}
+								
+								if( typeof max === "number" ) {
+									max = max === max ? RO( max ) : L-1 ;
+									if( max > L-1 ) {
+										max = L-1;
+									}
+									if( max <= 0 ) {
+										max = (L-1) + max;
+										if( max < 1 ) {
+											max = 0;
+										}
+									}									
+								} else {
+									max = L-1;
+								}
+								
+								if( min > max ) {
+									min = max;
+								}
+								
+								//trace( min , max );
+								
+								return arr[( PI( RA() * ( max - min + 1 ) ) + min )];								
+							} else {
+								return arr[0];
+							}						
+						};
+					return f;
+				}
+			};
+			return F;
+		})(); 
+		
+		onLOADED(function(){
+			
+			trace("loaded");
+			
+			var a = NaN;
+			
+			//trace( a === a );
+			
+			var a = [ 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10 ];
+			
+			//trace( jArray( a ).random( 2 , -8 ) );
+			//trace( jArray( a ).random() );
+			//trace( jArray( a ).random() );
+			//trace( jArray( a ).random() );
+			//trace( jArray( a ).random() );
+			
+			//trace( jArray( a ).randomize() );
+			
+			//trace( jArray( a ).clone() );
+			
+			trace( jArray( 1 , 2 , 3 ).merge( 4 , 5 , 6 ) );
+		});
+		
+	</script>
+</head>
+	<body>
+	</body>
+</html>

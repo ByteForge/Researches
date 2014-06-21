@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>page title</title>
+	
+	<script type="text/javascript">
+		function trace() {
+			var r = '';
+			var a = arguments;
+			var L = a.length;
+			var i = 0;
+			for( i = 0 ; i < L ; i++ ) {
+				r += a[i];
+				if( i+1 < L ) {r += ' , ';}
+			}    
+			//alert( r );
+			if( console.debug ) { // FF
+				console.debug(r);
+			} else if( console.log ) { // IE9
+				console.log(r);
+			}
+			//document.body.innerHTML += r + '<br>';
+		};
+		
+		function onLOADED( fn ){
+			window._intervalID = 0;
+			window._intervalFunction = function(){
+				if( document.body ){
+					window.clearInterval( window._intervalID );
+					fn();
+				}
+			};
+			window._intervalID = window.setInterval( window._intervalFunction , 100 );
+		};
+		
+		var J = (function(){
+			var f
+			var _uID = 0;
+				f = function(){
+				
+				};
+				
+				f.uniqueID = function(){
+					return _uID++;
+				};
+			return f;
+		})();
+		
+		var jDiv = (function(){
+			var F
+			F = function(){
+				if ( this instanceof jDiv && !this.__previouslyConstructed ) {
+					this.__previouslyConstructed = true;
+					trace("called as a constructor - new ...()");
+					
+					if( !F._.div ){
+						trace("init");
+						F._.div = window.document.createElement("div");
+						F._.div.style.width = "50px";
+						F._.div.style.height = "50px";
+					}
+					
+					var f;
+					var m = {};
+					var _;
+					var div;
+					var style;
+					var uID = J.uniqueID();
+					var defaults = {
+						left : { value : 0 , unit : "px" } ,
+						top : { value : 0 , unit : "px" } ,
+						right : { value : null , unit : "px" } ,
+						bottom : { value : null , unit : "px" }
+					};
+					
+					f = function(){
+						return m;
+					};
+						f._ = {
+							div : F._.div.cloneNode(false),
+							div_id : "div_" + uID,
+							id : "id_" + uID,
+							name : "instance_" + uID,
+							position : 0,
+							width : { value : 100 , unit : "px" },
+							height : { value : 100 , unit : "px" }
+						};
+						
+						_ = f._;
+						div = _.div;
+						style = div.style;
+						
+						div.id = _.div_id;
+						
+						f.position = function( value ){
+							switch( value ){
+								case "static":
+								case "absolute":
+								case "fixed":
+								case "relative":
+									_.position = value;
+									style.position = value;
+								break;								
+								default:
+									_.position = "static";
+									style.position = "static";
+								break;
+							}
+							if(typeof this === "object"){
+								return m;
+							}
+							return _.position;
+						};
+						
+						f.width = function( value ){
+							_.width.value = value;
+							style.width = _.width.value + _.width.unit;
+						
+							if(typeof this === "object"){
+								return m;
+							}
+							return _.width.value;
+						};
+						f.height = function( value ){
+							_.height.value = value;
+							style.height = _.height.value + _.height.unit;
+						
+							if(typeof this === "object"){
+								return m;
+							}
+							return _.height.value;
+						};
+						for(var M in f){
+							if( typeof f[M] === "function" ){
+								m[M] = f[M];
+							}
+						}
+
+					trace( div.id );
+					
+					return f;
+				} else {
+					trace("called as a function - ...()");
+				}
+			};
+			F._ = {};
+			return F;
+		})();
+		
+		onLOADED(function(){
+			
+			//trace("loaded");
+			
+			var d = new jDiv();
+			//var e = new jDiv();
+			
+			
+		});
+		
+	</script>
+</head>
+	<body>
+	</body>
+</html>

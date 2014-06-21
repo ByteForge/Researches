@@ -1,0 +1,83 @@
+
+	methods:
+		- generateUniqueID():
+			- letters & numbers: "aB01gE"
+			
+			- switches:
+				- numbers
+				- letters
+				- symbols / punctuations
+				- custom
+				- upperCaseLetters
+				- lowerCaseLetters
+				- binary / octal / decimal / hexa / base 64:
+					- only
+					- too
+				- no similar characters
+				
+			- start with / end with:
+				- letter
+				- number
+				- symbols / punctuations
+				- custom
+				- lowerCaseLetter / upperCaseLetter
+			- have at least:
+				- X number
+				- X letter
+				- X symbols / punctuations
+				- X custom				
+				- X lower/upperCaseLetter
+				
+			- include / exclude characters:
+			
+			- modify given string: ( give string, than modify with given options )
+			
+			- pattern:
+				- number: 0 / 0123456789
+				- letter: a / a-z/A-Z
+				- symbols # / punctuations: ~ / @
+				- custom: / not letter or number or symbols
+				- lowerCaseLetters: a-z
+				- upperCaseLetters: A-Z
+				
+			- phonetics:
+				- generate from pronounciation words
+				- generate TO pronounciation words
+				- custom words to generate from ( array:[ "Web" , "Chrome" ] )
+				- custom list to generate from:
+					- object: { w:"Web" , c:"Chrome" }
+					- array:
+						- one: [ 
+								"w" , "Web" ,
+								"c" , "Chrome"
+							]
+						- embedded: [
+								[ "w" , "Web" ] ,
+								[ "c" , "Chrome" ]
+							]
+						- objects within: [
+								{ w : "Web" } ,
+								{ c : "Chrome" }							]
+				
+			- generate pronouncable passwords: ( kablacev )
+			
+			- generate between given range:
+				- at least: min
+				- between: min - max
+				- exactly: 12
+				
+			- generate from given strings: ( give X strings, generate pass from them, like RC4 )
+			
+			- sequence generation: ( generate an Array of passwords )
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			

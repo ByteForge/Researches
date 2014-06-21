@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>JavaScript Cookie Handling</title>
+	
+	<script type="text/javascript">
+		function trace() {
+			var r = '';
+			var a = arguments;
+			var L = a.length;
+			var i = 0;
+			for( i = 0 ; i < L ; i++ ) {
+				r += a[i];
+				if( i+1 < L ) {r += ' , ';}
+			}    
+			//alert( r );
+			console.debug(r);
+			//document.body.innerHTML += r + '<br>';
+		}
+		
+		/*
+		abilities:
+			- add, remove, get Cookies and SubCookies
+			- save expiration date in cookies
+		*/
+		
+		//trace( escape( "@*-+" ) );
+		
+		//trace( Number(1319709021).toString( 16 ) );
+		//trace( Number(1319709021).toString( 32 ) );
+		//trace( Number(1319709021).toString( 36 ) );
+		
+		//trace( "hello you!" );
+				
+		//var chr = String.fromCharCode( 124 );
+		//var chr = "*";
+		//trace( chr , chr.length );
+		//trace( chr.charCodeAt( 0 ) );
+		
+		//trace( escape( chr ) );
+		//trace( escape( escape( chr ) ) );
+		
+		var Cookies = function() { return false; };
+			Cookies.addCookie = function( name , value , expiration , path , domain , secure ) {};			
+			Cookies.getCookie = function() {};
+			Cookies.removeCookie = function() {};
+			Cookies.hasCookie = function() {};
+			
+			Cookies.addCookies = function() {};
+			Cookies.getCookies = function() {};
+			Cookies.removeCookies = function() {};
+			Cookies.hasCookies = function() {};
+				Cookies.numCookies = function() {
+					
+					//document.cookie = escape( "name" ) +"="+ escape( "=name.value;;" )
+					//document.cookie = escape( "name1" ) +"="+ escape( "=name.value" )
+					
+					// NAMELESS cookie, ONLY 1
+					document.cookie = "value;;;";
+						// [value1]
+					
+					// VALUELESS cookies
+					document.cookie = "name;;;1=";
+					document.cookie = "name2=;;;;";
+					//document.cookie = "name3=";
+						// one: - [name1=]
+						// multiple: - [value1; name1=; name2=; name3=]
+					
+					var c = document.cookie;
+					var num = 0;
+					
+					if( c.length > 0 ) { // check document.cookies length
+						trace( "has cookies" );
+						
+						// single or multiple cookies
+						if( c.indexOf(";") > -1 ) {
+							trace("multiple");
+							
+							var arr = c.split( "; " );
+							num = arr.length;
+							
+							//trace( "arr elements:" , arr );
+							//trace( "arr length:" , arr.length );
+							
+						} else {
+							trace("single");
+							
+							num = 1;
+							
+							if( c.indexOf( "=" ) > -1 ) {
+								trace( "valueless" );
+							}  else {
+								trace( "nameless" );
+							}
+						}
+						
+						// check NAMELESS cookies
+							// only one NAMELESS cookie
+					
+							trace( "[" + c + "]" );
+							
+					
+					} else {
+						num = 0;
+						trace( "c.length is 0, no cookies" );
+					}
+				
+					//trace( c.length );
+					trace( "num is:" , num );
+				
+					return num;
+				};
+			
+			Cookies.add = function() {};
+			Cookies.get = function() {};
+			Cookies.remove = function() {};
+			Cookies.has = function() {};
+			
+			Cookies.maxCookies = function() {};
+			Cookies.maxCookiesPerDomain = function() {};
+			Cookies.maxCookiesPerSize = function() {};
+			
+			Cookies.clear = function() {};
+		
+		function traceAllCookies() {
+			trace( document.cookie );
+		}
+		
+		//Cookies.addCookie( "name" , "value1" , 0 );
+		
+		//traceAllCookies();
+		
+		//document.cookie = escape( "name.value=" ) +"="+ "=name.value" ;
+		
+		//trace( String( escape( "name.value=" ) +"="+ "=name.value" ).length );
+		
+		//trace( escape( "name " ) );
+		
+		//trace( Cookies );
+			//trace( Cookies.clear );
+		//trace( Cookies() );
+		
+		//document.cookie = escape( "name" ) +"="+ escape( "=name.value;;" )
+		//document.cookie = escape( "name1" ) +"="+ escape( "=name.value" )
+		
+		/*
+		trace( document.cookie );
+		
+		var a = document.cookie.replace("; ","=").split("=");
+		
+		var i = 0;
+		var L = a.length;
+		
+		for ( i = 0 ; i < L ; i++ ) {
+			trace("   "+a[i]);
+		}
+		*/
+		
+		//document.cookie = "name=";
+		
+		Cookies.numCookies();
+		
+		function Cookie( name , value , expiration , path , domain , secure ) {
+		
+		}
+		
+		function SubCookie( name , value ) {
+		
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</script>
+</head>
+	<body>
+	</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Custom Mouse Event</title>
+<script type="text/javascript" src="swfobject.js"></script>
+</head>
+
+<body>
+    <div id="flashcontent">&nbsp;</div>
+    <script type="text/javascript">
+       var so = new SWFObject("Main.swf", "flashMovie", "800", "800", "10", "#FFFFFF");
+            so.addParam("quality", "high");
+            so.addParam("name", "flashMovie");
+            so.addParam("id", "flashMovie");
+            so.addParam("AllowScriptAccess", "always");
+            so.addParam("wmode", "opaque");
+            so.addParam("menu", "false");
+            so.addVariable("variable1", "value1");
+            so.write("flashcontent");
+    </script>
+</body>
+</html>

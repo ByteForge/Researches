@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>JavaScript xDate</title>
+	
+	<script type="text/javascript">
+		function trace() {
+			var r = '';
+			var a = arguments;
+			var L = a.length;
+			var i = 0;
+			for( i = 0 ; i < L ; i++ ) {
+				r += a[i];
+				if( i+1 < L ) {r += ' , ';}
+			}    
+			//alert( r );
+			console.debug(r);
+			//document.body.innerHTML += r + '<br>';
+		}
+		
+		/*
+		
+		function xDate() { 
+			var f = function() {
+				return false;
+			}
+				f.add = function() { return true; }
+			
+			return f;
+		};
+		
+			xDate[ "+" ] = xDate.add = function() {};
+			xDate[ "-" ] = xDate.sub = function() {};
+			xDate[ "*" ] = xDate.mult = function() {};
+			xDate[ "/" ] = xDate[ ":" ] = xDate[ "÷" ] = xDate.div = function() {};
+		
+		//trace( xDate , xDate , new xDate() );
+		//trace( xDate.add );
+		
+		var d = new xDate();
+		
+		trace( d );
+		trace( d.add );
+		trace( d() );
+		
+		*/
+		
+		//trace( "works" );
+		
+		function toRoman( year ) {
+			//trace( year );
+			
+			var r = "";
+			var y = year;
+			
+			var i = 0;
+			
+			var _1000 = parseInt( y / 1000 );			
+			if( _1000 > 0 ) {
+				i = _1000;
+				while( i-- ) { r += "M" };
+				y -= _1000 * 1000;
+			}			
+			//trace( r , y );
+			
+			var a100 = [ "C" , "CC" , "CCC" , "CD" , "D", "DC", "DCC", "DCCC", "CM" ];
+			var _100 = parseInt( y / 100 );			
+			if( _100 > 0 ) {
+				r += a100[ _100-1 ];
+				y -= _100 * 100;
+			}			
+			//trace( r , y );
+			
+			var a10 = [ "X" , "XX" , "XXX" , "XL" , "L", "LX", "LXX", "LXXX", "XC" ];
+			var _10 = parseInt( y / 10 );			
+			if( _10 > 0 ) {				
+				r += a10[ _10-1 ];
+				y -= _10 * 10;			
+			}
+			
+			var a1 = [ "I" , "II" , "III" , "IV" , "V", "VI", "VII", "VIII", "IX" ];
+			var _1 = parseInt( y / 1 );			
+			if( _1 > 0 ) {
+				r += a1[ _1-1 ];
+				y -= _1 * 1;
+			}
+			
+			//trace( r , y );
+			
+			return r;
+		};
+		
+		function fromRoman( year ) {
+			trace( year );
+			trace( " " );
+			
+			a = [ 
+				"IV" , 4 ,
+				"IX" , 9 ,
+				"XL" , 40 ,
+				"XC" , 90 ,
+				"CD" , 400 ,
+				"CM" , 900
+			];
+			b = [
+				"I" , 1 ,
+				"V" , 5 ,
+				"X" , 10 ,
+				"L" , 50 ,
+				"C" , 100 ,
+				"D" , 500 ,
+				"M" , 1000
+			];
+			
+			var r = 0;
+			var y = year;
+			
+			var i = 0;
+			var L = a.length;
+			
+			/*
+			if( y.indexOf( "IV" ) > -1 ) { y = y.replace( "IV" , "" ); r += 4; }
+			if( y.indexOf( "IX" ) > -1 ) { y = y.replace( "IX" , "" ); r += 9; }
+			if( y.indexOf( "XL" ) > -1 ) { y = y.replace( "XL" , "" ); r += 40; }
+			if( y.indexOf( "XC" ) > -1 ) { y = y.replace( "XC" , "" ); r += 90; }
+			if( y.indexOf( "CD" ) > -1 ) { y = y.replace( "CD" , "" ); r += 400; }
+			if( y.indexOf( "CM" ) > -1 ) { y = y.replace( "CM" , "" ); r += 900; }
+			*/
+			
+			for( i = 0 ; i < L ; i+=2 ) {
+				if( y.indexOf( a[ i ] ) > -1 ) {
+					y = y.replace( a[ i ] , "" );
+					r += a[ i + 1 ];
+				}
+			}
+			
+			//trace( y , r );
+			
+			L = b.length;
+			for( i = 0 ; i < L ; i+=2 ) {
+				//trace( b[ i ] , b[ i + 1 ] );
+				if( y.indexOf( b[ i ] ) > -1 ) {
+					//trace( b[ i ] , y.split( b[ i ] ).length-1 ,"   ", b[ i + 1 ] , ( b[ i + 1 ] * ( y.split( b[ i ] ).length-1 ) ) );
+					r += b[ i + 1 ] * ( y.split( b[ i ] ).length-1 );
+					//trace( b[ i + 1 ] * y.split( b[ i ] ).length-1 )
+				}
+			}
+			
+			/*
+			y = y.split( "" );
+			i = y.length;
+			while( i-- ) {
+				switch( y[ i ] ) {
+					case "I": r += 1; break;
+					case "V": r += 5; break;
+					case "X": r += 10; break;
+					case "L": r += 50; break;
+					case "C": r += 100; break;
+					case "D": r += 500; break;
+					case "M": r += 1000; break;
+				}
+			}
+			*/
+			
+			trace( r );
+		};
+		
+		fromRoman( toRoman( 1988 ) );
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</script>
+</head>
+	<body>
+	</body>
+</html>
