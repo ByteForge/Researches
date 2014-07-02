@@ -1,0 +1,19 @@
+mysql:host=localhost;dbname=ss14-bdl2-fst-2;port=3306
+mysql:host=localhost;dbname=ss14-bdl2-fst-1;port=3306
+mysql:host=localhost;dbname=ss14-bdl2-fst-3;port=3306
+mysql:host=localhost;dbname=ss14-bdl2-fst-2;port=3306
+mysql:host=localhost;dbname=ss14-bdl2-fst-2;port=3306
+Object(12) {
+	["userID"] => int( 1001 )
+	["roleID"] => int( 4 )
+	["active"] => int( 1 )
+	["uid"] => string(5) "felix"
+	["hash"] => string(128) "b66a01229314f62350289f4d4022bb9e4d556661f3266ee51f01572acb7216cc7e7a9a8c4551722fdb4434e1ebd0ee18651dea3dfd4b09c5931947c71ffd680c"
+	["salt"] => string(88) "wvX0wYQK5S9GswY3zowbMEZ7uIvKsVKZ23ytkUaQg0C6/0U7IxQLC2IUR6MPnzu9AB1PDyqmnfRqby7PvdPY8A=="
+	["type"] => int( 2 )
+	["firstName"] => string(5) "Felix"
+	["lastName"] => string(6) "Martin"
+	["avatar"] => NULL
+	["signedUp"] => string(19) "2014-06-13 18:09:38"
+	["sessionID"] => NULL
+}

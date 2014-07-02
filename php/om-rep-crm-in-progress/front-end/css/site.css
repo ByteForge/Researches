@@ -1,0 +1,329 @@
+﻿html, body {
+  height: 100%;
+  margin:0px;
+  padding:0px;
+  background-color: transparent;
+}
+
+html { 
+  background: url(../images/bg.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='.myBackground.jpg', sizingMethod='scale');
+-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='myBackground.jpg', sizingMethod='scale')";
+
+
+img.bg {
+  /* Set rules to fill background */
+  min-height: 100%;
+  min-width: 1024px;
+  
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+  
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+@font-face {
+  font-family: 'LuzernRegular';
+  src: url('../fonts/luzern-regular.eot');
+  src: url('../fonts/luzern-regular.eot') format('embedded-opentype'),
+  url('../fonts/luzern-regular.woff') format('woff'),
+  url('../fonts/luzern-regular.ttf') format('truetype'),
+  url('../fonts/luzern-regular.svg#LuzernRegular') format('svg');
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url('../fonts/380615235-Lato-Reg.eot');
+  src: url('../fonts/380615235-Lato-Reg.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/380615235-Lato-Reg.svg#Lato') format('svg'),
+  url('../fonts/380615235-Lato-Reg.woff') format('woff'),
+  url('../fonts/380615235-Lato-Reg.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LangdonRegular';
+  src: url('../fonts/langdon.eot');
+  src: url('../fonts/langdon.eot') format('embedded-opentype'),
+  url('../fonts/langdon.woff') format('woff'),
+  url('../fonts/langdon.ttf') format('truetype'),
+  url('../fonts/langdon.svg#LangdonRegular') format('svg');
+}
+
+@font-face {
+  font-family: 'ArsenalRegular';
+  src: url('../fonts/arsenal-regular.eot');
+  src: url('../fonts/arsenal-regular.eot') format('embedded-opentype'),
+  url('../fonts/arsenal-regular.woff') format('woff'),
+  url('../fonts/arsenal-regular.ttf') format('truetype'),
+  url('../fonts/arsenal-regular.svg#ArsenalRegular') format('svg');
+}
+
+@font-face {
+  font-family: 'JUICELightRegular';
+  src: url('../fonts/juice_light.eot');
+  src: url('../fonts/juice_light.eot') format('embedded-opentype'),
+  url('../fonts/juice_light.woff') format('woff'),
+  url('../fonts/juice_light.ttf') format('truetype'),
+  url('../fonts/juice_light.svg#JUICELightRegular') format('svg');
+}
+
+@font-face {
+  font-family: 'SourceSansProLight';
+  src: url('../fonts/sourcesanspro-light.eot');
+  src: url('../fonts/sourcesanspro-light.eot') format('embedded-opentype'),
+  url('../fonts/sourcesanspro-light.woff') format('woff'),
+  url('../fonts/sourcesanspro-light.ttf') format('truetype'),
+  url('../fonts/sourcesanspro-light.svg#SourceSansProLight') format('svg');
+}
+
+@font-face {
+  font-family: "Governor";
+  src: url('../fonts/527862549-governor.eot');
+  src: url('../fonts/527862549-governor.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/527862549-governor.svg#Governor') format('svg'),
+  url('../fonts/527862549-governor.woff') format('woff'),
+  url('../fonts/527862549-governor.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#headerText{
+font-family: "Governor";
+color: white;
+text-align: center;
+font-size: 5em;
+
+}
+
+.underHeaderText{
+font-family: "Governor";
+color: white;
+text-align: center;
+}
+
+/* Div for main page texts */
+.mainText{ 
+  background: rgba(5, 5, 5, 0.8);
+}
+
+/* JS chart */
+#chartdiv{ 
+  background-color: transparent;
+  z-index: 1;
+}
+
+/* Navbar on top */
+
+#menu{
+  margin-bottom: 3%;
+} 
+
+.navbar-default{
+  border:none;
+  border-top: .4em solid #489AAF;
+  background-color: transparent;
+}
+
+.navbar-default .navbar-nav > li > a {
+  font-family: "Governor";
+  font-size: 1.6em;
+  padding-bottom: 0;
+  margin-left: 0vh 2vh 0vh 2vh;
+  color: rgb(211, 39, 39);
+  text-transform: uppercase;
+}
+
+/* Navbar hover */
+.navbar-collapse li:hover{
+  border:none;
+  border-bottom: .2em solid rgb(189, 10, 24);
+  color:white;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default 
+.navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+
+  color:black;
+  background-color: none;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+  color:white;
+}
+
+.navbar-collapse li a:hover{
+  color:white;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus{
+  color: black;
+}
+
+/* Toggle button */
+.navbar-toggle{
+  background-color: gray;
+}
+ 
+/* Navbar collapse */
+.navbar-collapse {
+  max-height: 340px;
+  padding-right: 0px 15px 0px 15px;
+  overflow-x: visible;
+  border-top: 1px solid transparent;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  -webkit-overflow-scrolling: touch;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+
+  float: right;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form{
+  border: none;
+}
+
+/* Main content div*/
+#mainContent{
+ background-color: rgba(255, 255, 255, 0.9);
+ height: 80%;
+}
+
+/* Side menu button */
+#menuButton{
+  margin: 5vh 5vh 1.5vh 26vh;
+  width: 3em;
+  background-color: rgb(189, 10, 24); 
+  border-radius: 200px 200px 200px 200px;
+  -moz-border-radius: 200px 200px 200px 200px;
+  -webkit-border-radius: 200px 200px 200px 200px;
+  border: none;
+  padding:1em 0em 1em 0em;
+}
+
+#showNavButton{
+  color:white;
+}
+
+#menuButton:hover{
+  background-color: rgb(155, 22, 32);
+}
+
+.modal-open .modal,.btn:focus{
+    outline:none!important
+}
+
+/* Logo on the  op of the left side menu */
+.logo {
+   margin-top:5vh;
+  margin-left: 6.6vh;
+  max-width: 30%;
+  max-height:30%;
+}
+
+/* DashBoard Headline */
+#dashboard h1{
+  text-align: center;
+  font-size:3.5em;
+  letter-spacing:.07em;
+  font-family: "Governor";
+  color: rgb(60, 56, 56);
+  margin-bottom: 4vh;
+}
+
+.img-thumbnail {
+  background-color: transparent;
+}
+
+.btn-default{
+  border: none;}
+
+/* Left side menu */
+.brand {
+  color: rgb(59, 255, 160);
+  text-align:center;
+}
+
+#firstLi{
+  margin-top: 10vh;
+}
+
+#navBox{
+ width: 22vh;
+ height: 100%;
+ background-color: rgba(0, 0,0, .8);
+ position: fixed;
+ height: 100%;
+ top: 1;
+ left: 0;
+ right: 5%;
+ z-index: 3;
+}
+
+#navBox  a{
+  font-family: "Governor";
+  text-transform: uppercase;
+  font-size: 1.1em;
+  color:white;
+  text-decoration: none;
+  padding-left: 3vh;
+  color:white;
+}
+
+#navBox li{
+
+  padding-top: 1.5%;
+  padding-bottom: 1.5%;
+}
+
+#navBox li:hover{
+  text-decoration: none;
+  background-color: white;  
+  border-bottom: .2em solid rgb(189, 10, 24);
+  padding-top: 1%;
+  padding-bottom: 1%;
+
+}
+
+#navBox li a:hover{
+  color:black;
+  background-color: transparent;
+  border:none;
+  font-size: 1.1em;
+}
+
+.btn-primary {
+  background: rgb(59, 156, 160);
+  border: none;
+}
+
+.btn{
+  border: none;
+  margin-right: 2px;
+}
+
+.btn a{
+ text-decoration: none;
+ color: white;
+}
+
+h1{
+  font-family: 'SourceSansProLight';
+}
+
+h3{
+  margin-left:30px;
+  padding-top: 0.4%;
+}

@@ -1,0 +1,10 @@
+mysql:host=localhost;dbname=ss14-bdl2-fst-2;port=3306
+mysql:host=localhost;dbname=ss14-bdl2-fst-1;port=3306
+mysql:host=localhost;dbname=ss14-bdl2-fst-3;port=3306
+mysql:host=localhost;dbname=ss14-bdl2-fst-2;port=3306
+mysql:host=localhost;dbname=ss14-bdl2-fst-2;port=3306
+int( 0 )
+firstName
+int( 0 )
+firstName
+int( 0 )

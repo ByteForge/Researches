@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="781579498">
+    <data-source source="LOCAL" name="MySQL - mysql@127.0.0.1" uuid="1dff8692-d558-45fb-9129-3470ee909da2">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://127.0.0.1:3306/mysql</jdbc-url>
+      <user-name>root</user-name>
+      <user-password>dfd8dfc5dfc5dfde</user-password>
+      <driver-properties>
+        <property name="zeroDateTimeBehavior" value="convertToNull" />
+        <property name="tinyInt1isBit" value="false" />
+      </driver-properties>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="MySQL - ss14-bdl2-fst-2@wi-projectdb.technikum-wien.at" uuid="eabd26e9-7dd4-4393-81cd-22ff491e9c7e">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://wi-projectdb.technikum-wien.at:3306/ss14-bdl2-fst-2</jdbc-url>
+      <user-name>ss14-bdl2-fst-2</user-name>
+      <user-password>dfeedfc8dffadfcbdfd9dfd9df9edfe8dfeedfe6df98df87df98</user-password>
+      <driver-properties>
+        <property name="zeroDateTimeBehavior" value="convertToNull" />
+        <property name="tinyInt1isBit" value="false" />
+      </driver-properties>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+

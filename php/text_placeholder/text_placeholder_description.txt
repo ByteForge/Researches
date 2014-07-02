@@ -1,0 +1,183 @@
+ 	parameters:
+ 		default:
+	 		{no parameters}:
+	 			return default placeholder
+
+	 	json
+	 	custom
+
+ 		simple:
+ 			{random}:
+	 			random / * / {}
+	 		{a statement/sentence}:
+	 			a statement / one statement / 1 statement / statement / s / .
+	 			1S / 1.
+	 		{a question}:
+	 			a question / one question / 1 question / question / q / ?
+	 			1Q / 1?
+	 		{a command, exclamation}:
+	 			a command / one ... / 1 ... / command / c / !
+	 			1C / 1!
+ 			{1 paragraph}:
+ 				1 paragraph / 1P / P{1}
+ 			{random paragraphs}:
+ 				paragraph{*} / P{*} / P{*} / P{} / *P
+ 			{1 sentence}:
+ 				1 sentence / 1S / S{1}
+ 			{random sentences}:
+ 				sentence{*} / S{*} / S{} / *S
+ 			{# letters, words, sentences, paragraphs}:
+ 				#L / #W / #S / #P
+
+ 		advanced:
+ 			{2-4 paragraphs, 1st paragraph with conditions, overall upper case, in english}:
+ 				paragraph{2,4}, 1.:( sentence{3,5,.?}, word{4,20} ), upper case, english
+ 				P{2,4}, 1(S{3,5,.?}, W{4,20}), UC, EN
+ 				P{2,4}, UC, EN, 1(S{3,5,.?}, W{4,20})
+
+ 			q words{3,7} / q w{3,7}
+ 			s{1,?} w{3,7}
+			{one english question, between 4-7 words}:
+				? en / 1? en
+				1q w{4,7} en
+				one english question / 1qen
+
+ 		examples:
+ 			1 paragraph:
+ 				1 p
+ 			2 questions, mixed case, in english:
+ 				questions{2}[Mixed Case, Eng]
+
+ 				{JSON}:
+ 					{ Q:2, M:"MC", L:"EN" }
+ 					{ question:2, case:"mixed", lang:"EN" }
+
+			5 sentences:
+				5s
+			1 sentence, question:
+				1s?
+				1 question, words{2,8}, mixed case, eng
+			2-5 paragraphs:
+				paragraphs{2,5} / p{2,5}
+				{json style}:
+					{ p:'2-5' } / { paragraph: '2-5' }
+			random paragraphs, detailed 2. paragraph:
+				{CUSTOM}:
+					paragraph{2,5}, 2.:{ sentences{3,5, .? UC eng}, words{5,10} }
+				{JSON}:
+					{ paragraph:'2-5', '2.':{sentence:['3-5', '.? UC ENG']} }
+
+					{ P:"2-5", "2":{ S:"3-5", M:".? UC", C:"Custom sentence" } }
+
+		group:
+			2 paragraphs, 1.:{ s{5,*} }, 2.:{ w{5,*} }
+
+		language elements:
+			{number}{lang.el.}
+
+			letter:
+				1 letter / 1l
+			word:
+				1 word / 1w
+			sentence:
+				1 sentence / 1s
+			paragraph
+				1 paragraph / 1p
+
+ 		modifiers:
+ 			start with lorem ipsum
+ 				lorem / -lorem
+
+ 			clauses:
+ 				. / statement / declarative / ...
+ 				? / question / interrogative / ???
+ 				! / command / imperative / exclamation / exclamatory / !!!
+
+ 			cases:
+	 			lower case / lower / low / lc
+	 			upper case / upper / up / uc
+	 			mixed case / mixed / mix / mc
+	 			title case / title / tc
+	 			sentence case / sentence / sc
+
+	 		bounds:
+	 			{X,Y,Z}
+	 		randomness:
+	 			*letter*
+	 			letter{*}
+	 			letter:{5,*}
+
+	 		custom content:
+		 		"C": / "c": / "content":
+		 			- custom words only: (remove punctuations)
+		 				["A", 'bed', 'set']
+		 			- custom sentences only: (remove punctuations)
+		 				["A short sentence", 'A not so much longer sentence.']
+		 			- custom string only: (automatically splitted into words)
+						"The quick brown fox jumps over the lazy dog."
+
+					- custom words too:
+						"+": ["A", 'bed', 'set']
+
+	 		custom:
+	 			words:
+	 				["A", 'bed', 'set']
+	 			sentences: (punctuations will be removed)
+	 				["A short sentence", 'A not so much longer sentence.']
+	 			complete string, automatically splitted:
+	 				"The quick brown fox jumps over the lazy dog."
+
+	 			usage:
+	 				only:
+	 					[...]
+	 					[eng, deu]
+	 				too:
+	 					+[...]
+	 					+[default, ...]
+	 					+[eng, deu]
+
+	 		styles:
+	 			default:
+	 				default/lorem ipsum/lipsum/lorem/ipsum/def
+	 			specific language:
+	 				english: en/eng
+	 				german: de/deu/ger
+	 				french:
+	 				spanish: sp
+	 				russian:
+	 			pseudo language
+
+
+	 	format:
+	 		- plain text:
+	 			1 paragraph
+	 			P{20,30,.?}
+	 		- html text:
+	 			1<p>
+	 			*<p>
+
+	 			1<ul>{4,7}
+	 			
+	 		{unordered lists, lists with conditions}
+	 			3<ul>{4,7}, <li>{3,8}
+	 		{unordered lists, lists with conditions, within them unordered lists and their conditioned list items}
+	 			3<ul>{4,7}, <li>{3,8}, <ul>{3,4}, <li>{3,12, .? }
+
+	 			{JSON}:
+	 				{ "<ul>":"4-7", "S":"4-12", "M":"mixed case" }
+	 				[ {"ul":"4-7"}, {"li":"3-8"}, {"ul":"3-4"}, {"li":"3-12"} ]
+
+
+ 		html tags:
+ 			paragraph
+ 			list
+ 			bold
+ 			italic
+ 		
+
+ 	useful links:
+ 		http://www.lipsum.com/
+
+ 		https://www.npmjs.org/package/lorem-ipsum
+ 		http://theultralinx.com/2013/08/10-hilarious-lorem-ipsum-generators-web-designers.html
+ 		http://www.webdesignerdepot.com/2013/08/101-essential-lorem-ipsum-generators/
